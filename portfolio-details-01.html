@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Contact - Danilo Boquet</title>
+  <title>Portfolio Details - Danilo Boquet</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -27,10 +27,9 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-
 </head>
 
-<body class="contact-page">
+<body class="portfolio-details-page">
 
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
@@ -65,7 +64,7 @@
               <li><a href="#">Dropdown 4</a></li>
             </ul>
           </li-->
-          <li><a href="contact.html" class="active">Contact</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
@@ -81,8 +80,8 @@
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
-              <h1>Contact</h1>
-              <p class="mb-0">I'd love to hear from you! Whether you have a project in mind, a question about my work, or just want to say hello, feel free to drop me a line. I'm available for freelance opportunities and collaborations that inspire creativity and innovation.</p>
+              <h1>Portfolio Details</h1>
+              <!--p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p-->
             </div>
           </div>
         </div>
@@ -91,99 +90,86 @@
         <div class="container">
           <ol>
             <li><a href="index.html">Home</a></li>
-            <li class="current">Contact</li>
+            <li class="current">Portfolio Details</li>
           </ol>
         </div>
       </nav>
     </div><!-- End Page Title -->
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact section">
+    <!-- Portfolio Details Section: Jucee -->
+    <section id="portfolio-details-01" class="portfolio-details section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
         <div class="row gy-4">
 
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
-              <i class="icon bi bi-geo-alt flex-shrink-0"></i>
-              <div>
-                <h3>Address</h3>
-                <p>Kitchener, Ontario. Canada</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper init-swiper">
 
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
-              <i class="icon bi bi-telephone flex-shrink-0"></i>
-              <div>
-                <h3>Call Me</h3>
-                <p>+1 (647)936-7255</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 5000
+                  },
+                  "slidesPerView": "auto",
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
 
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
-              <i class="icon bi bi-envelope flex-shrink-0"></i>
-              <div>
-                <h3>Email Me</h3>
-                <p>danilo.boquet@gmail.com</p>
-              </div>
-            </div>
-          </div><!-- End Info Item -->
+              <div class="swiper-wrapper align-items-center">
 
-          <div class="col-md-6">
-            <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
-              <i class="icon bi bi-share flex-shrink-0"></i>
-              <div>
-                <h3>Social Profiles</h3>
-                <div class="social-links">
-                  <a href="https://www.facebook.com/danilo.de.resende"><i class="bi bi-facebook"></i></a>
-                  <a href="https://www.instagram.com/nilloresende/"><i class="bi bi-instagram"></i></a>
-                  <a href="https://www.linkedin.com/in/danilo-de-resende-boquet/"><i class="bi bi-linkedin"></i></a>
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/app-1-01.jpg" alt="">
                 </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/app-1-02.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/app-1-03.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/app-1-04.jpg" alt="">
+                </div>
+
+                  
               </div>
+              <div class="swiper-pagination"></div>
             </div>
-          </div><!-- End Info Item -->
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info" data-aos="fade-up" data-aos-delay="200">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: UX/UI Design</li>
+                <li><strong>Client</strong>: TVape - Jücee</li>
+                <li><strong></strong><a href="https://xd.adobe.com/view/bd45fd6f-e324-46b6-6c4f-478e89f3a250-cb74/" target="_blank">Mobile Prototype</a></li>
+                <li><strong></strong><a href="https://drive.google.com/file/d/1gmgrGJysOgCAUN7EkDupB5f4-VWzz1fn/view?usp=drive_link" target="_blank">View PDF file</a></li>  
+                  
+              </ul>
+            </div>
+            <div class="portfolio-description" data-aos="fade-up" data-aos-delay="300">
+              <h2>Jüceee website (e-Juice devices)</h2>
+              <p>Developed a comprehensive UX/UI design strategy for Jücee's online presence. Created a visually appealing interface and a user-friendly environment that enhanced brand recognition and encouraged customer interaction.</p>
+            </div>
+          </div>
 
         </div>
 
-        <!--form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="600">
-          <div class="row gy-4">
-
-            <div class="col-md-6">
-              <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-            </div>
-
-            <div class="col-md-6 ">
-              <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-            </div>
-
-            <div class="col-md-12">
-              <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-            </div>
-
-            <div class="col-md-12">
-              <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-            </div>
-
-            <div class="col-md-12 text-center">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. I'll get back to you as soon as possible. Thank you!</div>
-
-              <button type="submit">Send Message</button>
-            </div>
-
-          </div>
-        </form--><!-- End Contact Form -->
-
       </div>
 
-    </section><!-- /Contact Section -->
+    </section><!-- /Portfolio Details Section: Jucee -->
 
+      
   </main>
 
     <footer id="footer" class="footer dark-background">
@@ -197,7 +183,18 @@
                 <a href=""><i class="bi bi-skype"></i></a-->
                 <a href="https://www.linkedin.com/in/danilo-de-resende-boquet/"><i class="bi bi-linkedin"></i></a>
             </div>
-
+            <!--div class="container">
+                <div class="copyright">
+                    <span>Copyright</span> <strong class="px-1 sitename">Personal</strong> <span>All Rights Reserved</span>
+                </div>
+                <div class="credits">
+                    <!-- All the links in the footer should remain intact. -->
+                    <!-- You can delete the links only if you've purchased the pro version. -->
+                    <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                    <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] >
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                </div>
+            </div-->
         </div>
     </footer>
 

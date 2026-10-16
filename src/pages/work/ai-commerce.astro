@@ -4,10 +4,14 @@ import StudyHeader from "../../components/study/StudyHeader.astro";
 import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
-import CapturePlaceholder from "../../components/study/CapturePlaceholder.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
 import PrototypeCallout from "../../components/study/PrototypeCallout.astro";
 import { pitchPrototype, shippingPilotPrototype } from "../../data/prototypes";
+import { Image } from "astro:assets";
+import screenAdminOverview from "../../assets/ai-commerce/screen-01-admin-overview.png";
+import screenAgentRfqDraft from "../../assets/ai-commerce/screen-02-agent-rfq-draft.png";
+import screenImportReview from "../../assets/ai-commerce/screen-03-import-review.png";
+import screenAgentRegistry from "../../assets/ai-commerce/screen-04-agent-registry.png";
 import "../../styles/study.css";
 ---
 
@@ -210,22 +214,62 @@ import "../../styles/study.css";
           </div>
         </div>
       </Figure>
-      <CapturePlaceholder
-        code="#C6"
-        caption="The admin overview — one workspace, scoped to client and facility, only ever showing what your role allows."
-      />
-      <CapturePlaceholder
-        code="#C7"
-        caption="An AI proposal in context — the assistant prepares the action, the operator decides, the reasoning is one reveal away."
-      />
-      <CapturePlaceholder
-        code="#C8"
-        caption="A tenant storefront (or the showcase portal) — product information as the first sales channel, identity from configuration, not code."
-      />
-      <CapturePlaceholder
-        code="#C9"
-        caption="Catalog import in the admin — supplier columns mapped themselves; the operator reviews every column before it commits."
-      />
+      <Figure
+        label="Sanitized capture"
+        caption="The admin overview — one workspace for the whole business: top products, inventory health, recent orders, and the assistant in reach."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenAdminOverview}
+          alt="Merchant admin command center: top-products chart, customer pulse, inventory health, recent orders with a status donut, and the assistant panel open"
+          widths={[640, 960, 1874]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="An AI proposal in context — the agent reads the conversation and drafts the RFQ with its summary; the operator decides in the thread: Review & Send or Discard."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenAgentRfqDraft}
+          alt="CRM relationship inbox with a bulk-order thread: an agent summary, an agent-created RFQ draft with Review & Send and Discard actions, and the customer message that triggered it"
+          widths={[640, 960, 1604]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="Eleven agents, one approval model — the registry keeps every automation a named actor: low-risk tasks run pre-approved, higher-stake decisions wait for the operator."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenAgentRegistry}
+          alt="Agentic commerce automation, Workflows & Agents: a semi-auto automation-mode banner with approval required for high-stake, above a registry of eleven agent cards spanning procurement, catalog, storefront, operations, and CRM"
+          widths={[640, 960, 1604]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="Import in the admin — the AI drafts every row with field-level confidence; nothing commits until the operator reviews."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenImportReview}
+          alt="Import BOM components review: a CSV import summary with 57 pending draft rows, each field carrying a confidence chip, committed rows marked, and Commit all and Reject all controls"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
     </div>
     <p style="margin-top: 28px">
       The network behind the catalog: the platform's public face is its showcase portal, where

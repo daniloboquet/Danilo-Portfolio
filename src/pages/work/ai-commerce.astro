@@ -1,0 +1,316 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StudyHeader from "../../components/study/StudyHeader.astro";
+import Act from "../../components/study/Act.astro";
+import DecisionCard from "../../components/study/DecisionCard.astro";
+import Figure from "../../components/study/Figure.astro";
+import CapturePlaceholder from "../../components/study/CapturePlaceholder.astro";
+import EndBlock from "../../components/study/EndBlock.astro";
+import PrototypeCallout from "../../components/study/PrototypeCallout.astro";
+import { pitchPrototype, shippingPilotPrototype } from "../../data/prototypes";
+import "../../styles/study.css";
+---
+
+<BaseLayout
+  title="SusTern AI-Commerce — the work around a product — Danilo Boquet"
+  description="Designing SusTern AI-Commerce: product information, branded storefronts, and connected workflows for specialty businesses — with human review where trust matters."
+>
+  <StudyHeader
+    num="01"
+    title="SusTern AI-Commerce"
+    hook="The work around a product matters as much as the product itself. SusTern AI-Commerce connects product information, branded storefronts, and connected workflows for specialty businesses — retailers, distributors, and manufacturers."
+    meta={[
+      { label: "Role", value: "Product & UX design lead" },
+      { label: "Company", value: "SusTern" },
+      { label: "Timeline", value: "2025 — present" },
+      { label: "Scope", value: "Platform concept, flows, design system, strategy" },
+    ]}
+    outcome="Pitched the platform, designed the system — one catalog for retail and wholesale; storefronts, admin, and the network shipped."
+  />
+
+  <Act num="01" title="The scene: the work around a product">
+    <p class="lede">
+      A specialty furniture retailer has outgrown template commerce. Their catalog doesn't fit
+      the boxes — variants, bundles, supplier relationships, lot tracking. Their business is two
+      businesses: retail customers on the storefront, distributors on the wholesale side, both
+      needing the same inventory truth. And the team running it all is two or three people.
+    </p>
+    <p>
+      Around every product, more people: a customer reorders by texting a photo of a chair; a
+      supplier answers a quote on a call; a receiver confirms a delivery by replying "YES." None
+      of them have an app installed, a login, or a minute of training.
+    </p>
+    <p>
+      SusTern AI-Commerce is the system behind all of it. Product information is the source of
+      truth, branded storefronts are the public face, and connected workflows are how the work
+      gets done — with human review wherever trust matters.
+    </p>
+    <p>
+      The platform began as a proposal. I joined SusTern to work on its first product, noryX —
+      and the more I saw, the more potential I found. I brought the first version of the
+      AI-Commerce platform to the team to make the case that we could do so much more. It landed:
+      an exceptional small team, some strikingly good ideas, and a founder willing to bet on
+      them. My job since has been to design the system: its flows, its language, and the moments
+      where AI proposals become human decisions.
+    </p>
+    {
+      pitchPrototype.enabled && (
+        <p class="proto-inline">
+          The pitch came with a working prototype —{" "}
+          <a
+            href={pitchPrototype.href}
+            target="_blank"
+            rel="noopener"
+            aria-describedby="pitch-prototype-note"
+          >
+            open the original build I used to make the case<span aria-hidden="true"> ↗</span>
+          </a>
+          <span class="proto-note" id="pitch-prototype-note">
+            {" "}
+            (Figma Make prototype · demo data · opens in a new tab)
+          </span>
+        </p>
+      )
+    }
+  </Act>
+
+  <Act num="02" title="The constraints">
+    <ul class="constraints">
+      <li>
+        <strong>Many businesses, one product.</strong>
+        <span>
+          One storefront codebase and one admin serve many merchant brands. Identity has to flex
+          without forking the platform.
+        </span>
+      </li>
+      <li>
+        <strong>B2B and B2C, one model.</strong>
+        <span> Wholesale and retail are the same catalog, the same stock, the same money. </span>
+      </li>
+      <li>
+        <strong>No app. No training. No login.</strong>
+        <span>
+          Floor workers, suppliers, and customers interact through voice, SMS, and signed links —
+          the channels they already live in. If a flow needs an install or a manual, it's designed
+          wrong.
+        </span>
+      </li>
+      <li>
+        <strong>AI as an actor — with a human at the commit.</strong>
+        <span>
+          The system drafts, classifies, and proposes. People approve. Every automated step has to
+          be inspectable, because operators are the ones accountable for what the system does.
+        </span>
+      </li>
+    </ul>
+  </Act>
+
+  <Act num="03" title="The decisions">
+    <DecisionCard
+      title="Channels people already use become product surfaces"
+      bet="Treat voice, SMS, and links as first-class interfaces: product photos in by MMS, order summaries and payment links out over SMS, registration gated by a one-time code during a call. The phone line isn't support — it's a storefront."
+      alternative="A companion app with an onboarding funnel, and “call us” as the fallback path for everyone else."
+      why="Every install is a wall, and training doesn't survive staff turnover. Designing for the channels people already carry means adoption is never a prerequisite — the interface is already in their pocket. And the same intents flow into the same backend as the admin, so the business keeps one version of the truth."
+    />
+    <DecisionCard
+      title="One workspace, scoped to context"
+      bet="A single admin shell where you select the client namespace and the facility — and see only what your scope allows. Requirements appear as guidance (“requires a namespace, facility, and active grant”), not as disabled walls."
+      alternative="Separate tools or skins per persona — provider, merchant, manufacturer."
+      why="A small team can't maintain parallel products. One design language means one pattern library, one set of fixes, and screens that stay simple because context — not extra code — decides what's shown."
+    />
+    <DecisionCard
+      title="One catalog, both buying modes"
+      bet="Model the catalog once — variants, volume pricing, supplier relationships, lot tracking — and let pricing, availability, and packaging rules differ by buyer group."
+      alternative="A separate B2B portal bolted onto a B2C store."
+      why="Specialty retail lives on both sides of that line; splitting the model splits the truth. One catalog keeps stock honest and lets a merchant quote a distributor from the same screen they sell from."
+    />
+    <DecisionCard
+      title="AI drafts; the operator holds the pen"
+      bet="AI generates and proposes — product descriptions, SEO, campaigns, imports, restock suggestions — but consequential steps resolve to an explicit human decision, with sources and reasoning one reveal away."
+      alternative="Full automation for speed, or a chat box bolted onto the side of the product."
+      why="Small teams defend every choice they ship. Automation earns trust by being visible: the draft is a draft, the proposal explains itself, and the human keeps the pen."
+    />
+    <div class="rejected">
+      <p class="rejected-head">What we said no to</p>
+      <ul>
+        <li>A companion app — anything that needs installing or training</li>
+        <li>A separate B2B portal — splitting the catalog would split the truth</li>
+        <li>Silent automation — full auto-apply with no human at the commit</li>
+      </ul>
+    </div>
+  </Act>
+
+  <Act num="04" title="The work">
+    <p class="study-disclosure">
+      Figures below reconstruct shipped patterns from the design documentation and are labelled
+      “Reconstruction.” Sanitized product captures are added as they clear review.
+    </p>
+    <div class="fig-grid fig-grid--2">
+      <Figure
+        label="Reconstruction"
+        caption="From channel to action: voice, SMS, and photo intake all resolve into the same pipeline — captured, drafted, confirmed."
+      >
+        <div class="fx">
+          <div class="fx-bar">
+            <span class="fx-dots"><span></span><span></span><span></span></span>
+            <span class="fx-title">Intake pipeline</span>
+          </div>
+          <div class="fx-body">
+            <div class="pipe">
+              <div class="pipe-node">
+                <span class="pipe-node-label">Channel</span>
+                <div class="pipe-node-title">Voice · SMS · MMS</div>
+              </div>
+              <span class="pipe-arrow" aria-hidden="true">&rarr;</span>
+              <div class="pipe-node">
+                <span class="pipe-node-label">Captured</span>
+                <div class="pipe-node-title">Intent + items</div>
+              </div>
+              <span class="pipe-arrow" aria-hidden="true">&rarr;</span>
+              <div class="pipe-node">
+                <span class="pipe-node-label">Drafted</span>
+                <div class="pipe-node-title">AI proposes the action</div>
+              </div>
+              <span class="pipe-arrow" aria-hidden="true">&rarr;</span>
+              <div class="pipe-node">
+                <span class="pipe-node-label">Confirmed</span>
+                <div class="pipe-node-title">Human decides</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Figure>
+      <Figure
+        label="Reconstruction"
+        caption="A reorder handled entirely in a text thread — photo in, order summary and payment link out. No app, no login."
+      >
+        <div class="fx">
+          <div class="fx-bar">
+            <span class="fx-dots"><span></span><span></span><span></span></span>
+            <span class="fx-title">SMS — customer line</span>
+          </div>
+          <div class="fx-body">
+            <div class="sms-thread">
+              <span class="sms-day">Tuesday 9:41 AM</span>
+              <div class="bubble bubble-in">
+                Can I reorder the walnut dining set from last spring?
+                <div class="sms-photo">[ photo ] walnut-chair.jpg — sent by customer</div>
+                <div class="sms-meta">Customer · 9:41 AM</div>
+              </div>
+              <div class="bubble bubble-out">
+                Of course — 1× Walnut Dining Set, delivered to your usual address.
+                <span class="sms-link">Secure payment link</span>
+                <div class="sms-meta">SusTern · 9:42 AM</div>
+              </div>
+              <div class="bubble bubble-in">
+                Order placed — thank you!
+                <div class="sms-meta">Customer · 9:44 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Figure>
+      <CapturePlaceholder
+        code="#C6"
+        caption="The admin overview — one workspace, scoped to client and facility, only ever showing what your role allows."
+      />
+      <CapturePlaceholder
+        code="#C7"
+        caption="An AI proposal in context — the assistant prepares the action, the operator decides, the reasoning is one reveal away."
+      />
+      <CapturePlaceholder
+        code="#C8"
+        caption="A tenant storefront (or the showcase portal) — product information as the first sales channel, identity from configuration, not code."
+      />
+      <CapturePlaceholder
+        code="#C9"
+        caption="Catalog import in the admin — supplier columns mapped themselves; the operator reviews every column before it commits."
+      />
+    </div>
+    <p style="margin-top: 28px">
+      The network behind the catalog: the platform's public face is its showcase portal, where
+      manufacturers, distributors, and buyers present their products and find each other. Product
+      information is the first sales channel — the storefront is the context layer that turns
+      browsing into a conversation.
+    </p>
+    <p class="group-label">How this shipped</p>
+    <div class="shipped">
+      <div class="shipped-step">
+        <span class="shipped-step-label">Audit</span>
+        <p>Every surface reviewed against one design language as the platform grew</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Decide</span>
+        <p>One shell, one catalog, one vocabulary — alternatives documented</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Ship</span>
+        <p>Storefronts, admin, and network shipped without forking the product</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Govern</span>
+        <p>The pattern library versioned; new surfaces assemble from canonical parts</p>
+      </div>
+    </div>
+  </Act>
+
+  <Act num="05" title="Impact & status">
+    <p>
+      Shipped and evolving. Merchant storefronts run on the platform today — catalog to checkout —
+      with the admin behind them and the showcase portal connecting manufacturers, distributors,
+      and buyers. Recent work rarely comes with public metrics at this stage, so here's what I'd
+      point to instead: one catalog model now serves retail and wholesale without divergence; the
+      no-training constraint held all the way to production; and the admin stayed one system as
+      the surface count grew.
+    </p>
+    <div class="counted">
+      <div class="counted-item">
+        <span class="counted-num">1</span>
+        <span class="counted-label">admin shell, every role</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">1</span>
+        <span class="counted-label">catalog, both buying modes</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">0</span>
+        <span class="counted-label">per-merchant forks</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">4</span>
+        <span class="counted-label">workflow stages, one system</span>
+      </div>
+    </div>
+    <p>
+      The polished marketing version of the platform lives at its showcase portal; this is the
+      design version.
+    </p>
+    {
+      shippingPilotPrototype.enabled && (
+        <PrototypeCallout
+          id="shipping-pilot"
+          eyebrow="Side-project pilot"
+          title="Delivery services, inside the platform"
+          description="A side-project designed to extend the platform into delivery: a shipping-provider portal — last-mile orders, AI route planning, fleet management, delivery KPIs — piloted in the Kitchener–Waterloo–Cambridge area with a local delivery co-operative. I designed and built the pilot prototype; demo data throughout."
+          href={shippingPilotPrototype.href}
+          cta="Open the pilot prototype"
+          note="Figma Make build (AI-assisted) · demo data · opens in a new tab · best on a desktop"
+        />
+      )
+    }
+  </Act>
+
+  <Act num="06" title="What I'd do differently">
+    <p>
+      I'd push the pattern library even earlier. We committed to a governed design system a few
+      months in; every week before it was paid for in inconsistency I had to clean up later.
+    </p>
+    <p>
+      And I'd sequence catalog ingestion sooner. We designed the storefront first because it's
+      visible — but the import pipeline is where merchant trust is actually won. Bad data makes
+      every screen a lie.
+    </p>
+  </Act>
+
+  <EndBlock nextTitle="SusTern TPL Platform" nextHref="/work/tpl-platform/" />
+</BaseLayout>

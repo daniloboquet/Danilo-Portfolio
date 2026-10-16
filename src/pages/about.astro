@@ -1,0 +1,220 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import portrait from "../assets/about/portrait.jpg";
+---
+
+<BaseLayout
+  title="About — Danilo Boquet"
+  description="Senior product designer, currently Head of Product & UX/UI at SusTern. From brand and e-commerce in Brazil to leading product and UX for an AI-native commerce platform in Canada."
+>
+  <section class="section about">
+    <div class="container about-grid">
+      <div class="about-main">
+        <p class="eyebrow" data-reveal>About</p>
+        <h1 data-reveal>From storefronts to operating systems.</h1>
+        <p data-reveal>
+          Nearly two decades in design — a decade of it in UX and e-commerce. I started in brand
+          and graphic design in Brazil, moved through e-commerce and digital project leadership in
+          Canada, and joined SusTern to work on noryX, its first product. I saw more potential
+          than one app — so I brought the first version of the AI-Commerce platform to the team,
+          made the case, and now lead product and UX design across it: the platform, its
+          storefronts, and the logistics platform derived from it.
+        </p>
+        <p data-reveal>
+          My favorite problems are the ones with too many moving parts: logistics queues,
+          multi-tenant catalogs, billing flows, and interfaces for people who never got a manual.
+          I work end to end — research, flows, systems, and the shipped implementation — and I
+          write up the decisions the way I make them, alternatives included.
+        </p>
+        <p data-reveal>
+          Based in Ontario, Canada — within reach of the Kitchener-Waterloo corridor.
+        </p>
+        <div class="fitline" data-reveal>
+          <span class="fitline-label">Where I do my best work</span>
+          <p>
+            Senior/lead product design roles in AI-native B2B SaaS — multi-tenant platforms with
+            real operations behind them, and teams that value the system, not just the screen.
+          </p>
+        </div>
+        <div class="about-actions" data-reveal>
+          <a class="btn btn-primary" href="mailto:danilo.boquet@gmail.com">Get in touch</a>
+          <a class="btn btn-ghost" href="/#work">See the work</a>
+          <a class="btn btn-ghost" href="/resume/">Résumé</a>
+        </div>
+      </div>
+      <aside class="about-aside" data-reveal>
+        <div class="portrait">
+          <Image
+            src={portrait}
+            alt="Danilo Boquet — portrait"
+            widths={[300, 600]}
+            sizes="(max-width: 760px) 92vw, 300px"
+            loading="eager"
+          />
+        </div>
+        <div class="facts">
+          <dl>
+            <div>
+              <dt>Currently</dt>
+              <dd>Head of Product &amp; UX/UI, SusTern</dd>
+            </div>
+            <div>
+              <dt>Live work</dt>
+              <dd>noryX on Shopify · the SusTern platform</dd>
+            </div>
+            <div>
+              <dt>Focus</dt>
+              <dd>Design systems &middot; Complex flows &middot; AI-native products</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>English &middot; Portuguese</dd>
+            </div>
+            <div>
+              <dt>Location</dt>
+              <dd>Ontario, Canada</dd>
+            </div>
+          </dl>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-interests" data-reveal>
+      <p class="eyebrow">Interests</p>
+      <div class="chips">
+        <span class="chip">Design systems</span>
+        <span class="chip">Accessibility</span>
+        <span class="chip">Inclusive design</span>
+        <span class="chip">Agentic AI</span>
+        <span class="chip">Advanced prototyping</span>
+        <span class="chip">Sustainable design</span>
+        <span class="chip">Books &amp; reading</span>
+        <span class="chip">Music</span>
+        <span class="chip">Cinema</span>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: clamp(32px, 6vw, 72px);
+    align-items: start;
+  }
+
+  .about h1 {
+    margin-top: 16px;
+    max-width: 18ch;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+  }
+
+  .about-main p {
+    margin-top: 20px;
+    max-width: 62ch;
+    color: var(--ink-soft);
+  }
+
+  .about-actions {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .fitline {
+    margin-top: 26px;
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+  }
+
+  .fitline-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .fitline p {
+    margin-top: 8px;
+    max-width: 62ch;
+    color: var(--ink);
+    font-size: 1.02rem;
+  }
+
+  .facts {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    background: var(--paper-soft);
+  }
+
+  .portrait {
+    max-width: 300px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--paper-soft);
+  }
+
+  .portrait :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .about-aside .facts {
+    margin-top: 18px;
+  }
+
+  .facts dl {
+    margin: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  .facts div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .facts dd {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 760px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .chips {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .chip {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    background: #fff;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+  }
+</style>

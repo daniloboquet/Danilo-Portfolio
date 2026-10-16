@@ -1,0 +1,285 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StudyHeader from "../../components/study/StudyHeader.astro";
+import Act from "../../components/study/Act.astro";
+import DecisionCard from "../../components/study/DecisionCard.astro";
+import Figure from "../../components/study/Figure.astro";
+import CapturePlaceholder from "../../components/study/CapturePlaceholder.astro";
+import EndBlock from "../../components/study/EndBlock.astro";
+import { Image } from "astro:assets";
+import screenReceiving from "../../assets/tpl/screen-01-receiving.png";
+import screenHandoff from "../../assets/tpl/screen-02-handoff.png";
+import screenIntake from "../../assets/tpl/screen-03-intake.png";
+import "../../styles/study.css";
+---
+
+<BaseLayout
+  title="SusTern TPL Platform — one decision at a time — Danilo Boquet"
+  description="Redesigning third-party logistics operations: one review surface per record, an exception-first queue, and one locked vocabulary across a provider workspace."
+>
+  <StudyHeader
+    num="02"
+    title="SusTern TPL Platform"
+    hook="Third-party logistics is a queue of exceptions. My design goal: one home per record, one decision per row, and a queue that tells you what to do next."
+    meta={[
+      { label: "Role", value: "Product & UX design lead" },
+      { label: "Company", value: "SusTern" },
+      { label: "Timeline", value: "2025 — present" },
+      { label: "Scope", value: "Intake, receiving, dispatch, billing, design system" },
+    ]}
+    outcome="Four review surfaces → one. One decision per row. No new backend endpoints. Two confirmations — deliberately placed."
+  />
+
+  <Act num="01" title="The scene: a stack of documents, one question each">
+    <p class="lede">
+      It's morning at a third-party logistics provider. The day starts with a stack: packing
+      lists, bills of lading, assemblies, return authorizations. Every document needs a call —
+      accept it, correct it, chase it, or block it.
+    </p>
+    <p>
+      When I took over the design, that work lived in four overlapping review surfaces: a row
+      expansion, a facts modal, and two alternate views of the same extracted data. Operators had
+      learned four patterns to do one thing. The vocabulary drifted too — the same state wore a
+      different name on the nav, in the filter, and on the button.
+    </p>
+    <p>
+      The tools worked. The design didn't. The rebuild answered one question: what does a
+      provider see when the software is the calmest, most organized colleague on the floor? The
+      TPL Platform is derived from the AI-Commerce platform, and it inherits the same principles:
+      scoped context, evidence at hand, and one human decision at every commit.
+    </p>
+  </Act>
+
+  <Act num="02" title="The constraint: providers run real operations">
+    <ul class="constraints">
+      <li>
+        <strong>Multi-merchant by default.</strong>
+        <span>
+          A provider serves many client merchant workspaces at once. Every screen has to make its
+          scope obvious — which client, which facility, which grant.
+        </span>
+      </li>
+      <li>
+        <strong>Evidence or it didn't happen.</strong>
+        <span>
+          These records move money and goods. Every decision keeps its paperwork attached, and
+          irreversible actions are staged and confirmed.
+        </span>
+      </li>
+      <li>
+        <strong>Operators, not analysts.</strong>
+        <span>
+          Small teams in the middle of physical work. The queue has to tell them what's next
+          without a manual.
+        </span>
+      </li>
+    </ul>
+  </Act>
+
+  <Act num="03" title="The decisions">
+    <DecisionCard
+      title="One review surface per record"
+      bet="A record opens in exactly one place: a fullscreen review with the decision state up top, evidence one reveal away, and provenance available but never in the way. Rows keep only a status chip, a reason line, and one action."
+      alternative="Keep the four surfaces — a row expansion, a draft-facts modal, and alternate views of the same record."
+      why="One place to act removes the oldest question in the room — “is this the same thing?” — and one pattern is learnable at a glance. Operators learn a decision, not a navigation."
+    />
+    <DecisionCard
+      title="Exception-first queue with deterministic order"
+      bet="The queue sorts by risk, not by time: conflicts first, then missing information, then needs review — and ready records fold quietly behind a “show ready” toggle. Every row derives exactly one action from its status."
+      alternative="A chronological list where operators scan titles looking for problems."
+      why="Attention is the scarce resource. When the queue orders itself by consequence, the workflow is the screen — nothing to memorize, nothing to hunt."
+    />
+    <DecisionCard
+      title="Upload first, classify later — in one vocabulary"
+      bet="A single upload surface stages documents before anything is classified; the role can be confirmed, corrected, or deferred. And one user-facing term per concept, locked — across nav, filters, buttons, and help."
+      alternative="A wizard that interrogates you before accepting a file, with per-surface naming that drifts apart."
+      why="People arrive holding a file and knowing why. Blocking the upload on classification slows the one thing they came to do — and terminology discipline is what makes a screen full of exceptions feel small."
+    />
+    <DecisionCard
+      title="One workspace, scoped to context"
+      bet="A single admin shell where you select the client namespace and the facility — and see only what your scope allows. Requirements appear as guidance (“requires a namespace, facility, and active grant”), not as disabled walls."
+      alternative="Separate tools or skins per persona — provider, merchant, manufacturer."
+      why="A small team can't maintain parallel products. One design language means one pattern library, one set of fixes, and screens that stay simple because context — not extra code — decides what's shown."
+    />
+    <div class="rejected">
+      <p class="rejected-head">What we said no to</p>
+      <ul>
+        <li>A second upload path — one intake surface, no exceptions</li>
+        <li>Four ways to review one record — one surface, one decision</li>
+        <li>A confirmation on everything — we confirmed exactly two money actions</li>
+        <li>A chronological queue — attention follows risk, not arrival time</li>
+      </ul>
+    </div>
+  </Act>
+
+  <Act num="04" title="The work">
+    <p class="study-disclosure">
+      Real product captures below are labelled “Sanitized capture” (provider demo workspace);
+      composed figures are labelled “Reconstruction.”
+    </p>
+    <div class="fig-grid">
+      <Figure
+        label="Sanitized capture"
+        caption="The consolidated workspace: source documents, evidence, and domain handoffs in one place. Scope requirements appear as guidance — namespace, facility, grant — instead of disabled walls."
+        pad={false}
+      >
+        <Image
+          src={screenIntake}
+          alt="Document intake workspace with four handoff cards and an upload panel with namespace, facility, role, and file fields"
+          widths={[640, 960, 1356]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="Consolidation made visible — the old source-intake tab now hands operators to the single workspace instead of keeping a second upload path alive."
+        pad={false}
+      >
+        <Image
+          src={screenHandoff}
+          alt="Source intake tab showing a notice that uploads and reviews moved to the document intake workspace"
+          widths={[640, 960, 1348]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="The operational side of Inbound — receiving, returns and grading, and source intake sharing one surface and one vocabulary."
+        pad={false}
+      >
+        <Image
+          src={screenReceiving}
+          alt="Receiving form with reference number, line items, lot and condition fields, and a confirm receipt action"
+          widths={[640, 960, 1356]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
+    </div>
+    <div class="fig-grid">
+      <CapturePlaceholder
+        code="#C1"
+        caption="The exception-first queue: status chips, one reason line, one action per row, “show ready” folded away. Completes the before → after pair with the handoff capture above."
+      />
+      <CapturePlaceholder
+        code="#C3"
+        caption="Commercial billing after the redesign: one row, one derived action, confirmations only where money and irreversibility meet."
+      />
+    </div>
+    <div class="fig-grid fig-grid--2">
+      <CapturePlaceholder
+        code="#C2"
+        caption="The review surface: decide first, evidence one reveal away, one primary action in the footer."
+      />
+      <Figure
+        label="Reconstruction"
+        caption="One term per concept, locked across every surface — the quiet work that makes the loud screens simple."
+      >
+        <div class="vocab">
+          <div class="vocab-col vocab-dim">
+            <h4>Before</h4>
+            <ul>
+              <li>Row expansion — “processed”</li>
+              <li>Facts modal — “in progress”</li>
+              <li>Alternate view A — “pending review”</li>
+              <li>Alternate view B — “needs checking”</li>
+            </ul>
+          </div>
+          <div class="vocab-col">
+            <h4>After</h4>
+            <ul>
+              <li>Processing</li>
+              <li>Needs review</li>
+              <li>Conflicts</li>
+              <li>Missing</li>
+              <li>Ready</li>
+            </ul>
+          </div>
+        </div>
+      </Figure>
+    </div>
+    <div class="fig-grid fig-grid--2">
+      <CapturePlaceholder
+        code="#C4"
+        caption="The calm end of the queue: nothing to chase. “Attention-first” works because it can also be quiet."
+      />
+      <CapturePlaceholder
+        code="#C5"
+        caption="The provider workspace on a narrow screen — one decision at a time survives the phone."
+      />
+    </div>
+    <p class="group-label">How this shipped</p>
+    <div class="shipped">
+      <div class="shipped-step">
+        <span class="shipped-step-label">Audit</span>
+        <p>11 friction points catalogued before any screen changed</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Decide</span>
+        <p>One review surface per record; alternatives recorded and rejected</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Ship</span>
+        <p>Phased delivery, each step behind acceptance gates</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Govern</span>
+        <p>Patterns moved into the design system; guardrails run in CI</p>
+      </div>
+    </div>
+  </Act>
+
+  <Act num="05" title="Impact & status">
+    <p>
+      Recently shipped — and I'll be precise about that. The four review surfaces became one; the
+      queue leads with exceptions and derives one action per row; intake terminology is locked
+      across the workspace. Commercial billing went from a hand-rolled page to a governed flow
+      with confirmations on every irreversible step. And the platform's design system now ships
+      in versioned releases with automated guardrail tests, so the patterns hold across a
+      workspace that spans intake, receiving, dispatch, inventory, assembly, billing, and returns.
+    </p>
+    <div class="counted">
+      <div class="counted-item">
+        <span class="counted-num">4 → 1</span>
+        <span class="counted-label">review surfaces consolidated</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">11</span>
+        <span class="counted-label">friction points resolved</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">0</span>
+        <span class="counted-label">new backend endpoints required</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">2</span>
+        <span class="counted-label">confirmations, deliberately placed</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">Green</span>
+        <span class="counted-label">full suite, guardrails included</span>
+      </div>
+    </div>
+    <p>
+      What doesn't exist yet is operator outcome data: the newest flows shipped weeks ago, and
+      I'd rather show you the structure than a number I can't defend. The structure is checkable
+      in the screenshots above.
+    </p>
+  </Act>
+
+  <Act num="06" title="What I'd do differently">
+    <p>
+      I'd lock terminology in week one. Doing it at consolidation meant re-teaching every screen
+      that already existed.
+    </p>
+    <p>
+      And “show ready” should have been the default fold from the start. We knew attention should
+      follow risk, but keeping ready records visible felt safer to stakeholders. The operators
+      never needed them. Attention-first is the right default — everywhere.
+    </p>
+  </Act>
+
+  <EndBlock nextTitle="noryX — the first product" nextHref="/work/noryx/" />
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+interface Props {
+  nextTitle: string;
+  nextHref: string;
+}
+
+const { nextTitle, nextHref } = Astro.props;
+---
+
+<section class="end-block">
+  <div class="container end-grid">
+    <div>
+      <p class="eyebrow">Next</p>
+      <a class="end-next" href={nextHref}>
+        {nextTitle} <span aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+    <div class="end-contact">
+      <p class="eyebrow">Or</p>
+      <p>
+        Ask me about this one — <a href="mailto:danilo.boquet@gmail.com">danilo.boquet@gmail.com</a
+        >.
+      </p>
+      <p class="end-links">
+        <a href="/#work">&larr; All work</a>
+        &nbsp;&middot;&nbsp;
+        <a href="https://www.linkedin.com/in/danilo-de-resende-boquet/">LinkedIn</a>
+      </p>
+    </div>
+  </div>
+</section>

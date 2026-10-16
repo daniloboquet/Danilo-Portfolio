@@ -1,0 +1,28 @@
+---
+interface Props {
+  title: string;
+  bet: string;
+  alternative: string;
+  why: string;
+}
+
+const { title, bet, alternative, why } = Astro.props;
+---
+
+<article class="decision">
+  <h3>{title}</h3>
+  <div class="decision-grid">
+    <div>
+      <span class="decision-label">The bet</span>
+      <p>{bet}</p>
+    </div>
+    <div>
+      <span class="decision-label">The alternative</span>
+      <p>{alternative}</p>
+    </div>
+    <div>
+      <span class="decision-label">Why it won</span>
+      <p>{why}</p>
+    </div>
+  </div>
+</article>

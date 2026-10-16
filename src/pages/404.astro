@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Page not found — Danilo Boquet"
+  description="This page doesn't exist. The work does — start there."
+>
+  <section class="section notfound">
+    <div class="container">
+      <p class="eyebrow" data-reveal>404</p>
+      <h1 data-reveal>This page doesn't exist. The work does.</h1>
+      <p class="section-lead" data-reveal>Try one of these instead:</p>
+      <div class="nf-links" data-reveal>
+        <a class="btn btn-primary" href="/">Home</a>
+        <a class="btn btn-ghost" href="/#work">Selected work</a>
+        <a class="btn btn-ghost" href="/about">About</a>
+        <a class="btn btn-ghost" href="/#contact">Contact</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound h1 {
+    margin-top: 16px;
+    max-width: 20ch;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+
+  .nf-links {
+    margin-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+</style>

@@ -1,0 +1,350 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StudyHeader from "../../components/study/StudyHeader.astro";
+import Act from "../../components/study/Act.astro";
+import DecisionCard from "../../components/study/DecisionCard.astro";
+import Figure from "../../components/study/Figure.astro";
+import EndBlock from "../../components/study/EndBlock.astro";
+import { Image } from "astro:assets";
+import beforeSeo from "../../assets/noryx/selected/before-seo.png";
+import sketchBridge from "../../assets/noryx/selected/sketch-bridge.png";
+import afterHome from "../../assets/noryx/selected/after-home.png";
+import afterOnboarding from "../../assets/noryx/selected/after-onboarding.png";
+import "../../styles/study.css";
+---
+
+<BaseLayout
+  title="noryX — the first product — Danilo Boquet"
+  description="SusTern's first product: a Shopify app that automates SEO, content, and inventory intelligence for small e-commerce teams — and set the review-and-apply pattern the platform still runs on."
+>
+  <StudyHeader
+    num="03"
+    title="noryX — the first product"
+    hook="The product that brought me to SusTern — live when I joined in May 2025, and mine to modernize. I rebuilt the experience: new navigation and search, an agent chat that carries the full business context, and a guided onboarding flow. The pattern it set still runs through everything since: the AI does the work, the human stays in the loop."
+    meta={[
+      { label: "Role", value: "Product & UX design lead" },
+      { label: "Company", value: "SusTern" },
+      { label: "Timeline", value: "Live since Feb 2025 · joined SusTern May 2025" },
+      { label: "Scope", value: "Shopify app · UX modernization · AI growth automation" },
+    ]}
+    outcome="Rebuilt the UX post-launch in 2025 · the review-and-apply pattern the platform adopted · live on Shopify since Feb 2025, 5.0 across the first reviews."
+  />
+
+  <Act num="01" title="The scene: six thousand products, one person">
+    <p class="lede">
+      noryX started from the smallest possible user: the Shopify merchant with a catalog too big
+      for their time. Acquisition costs climbing on one side; six thousand products on the other;
+      and a week that disappears into the growth work — metadata, blogs, campaigns — instead of
+      the business.
+    </p>
+    <p>
+      The data to make better calls already exists — Google Analytics, Search Console, inventory,
+      sales — but it lives in five tabs, and nobody has time to read it. The gap isn't data. It's
+      the next move.
+    </p>
+    <p>
+      When I joined in May 2025, noryX was live — and the interface hadn't kept pace with the
+      engine. Dated patterns; little of the modern UX/UI craft the product had earned. My first
+      job was the retrofit: new navigation and search, an agent chat that carries the full
+      business context, a guided onboarding flow — and under all of it, a modern design system,
+      with the developer team coached into owning its principles. A modern layer over an engine
+      that already worked.
+    </p>
+  </Act>
+
+  <Act num="02" title="The constraints">
+    <ul class="constraints">
+      <li>
+        <strong>Trust is the feature.</strong>
+        <span>
+          The app changes live product pages at catalog scale. Merchants defend their brand voice
+          and their pricing — so automation lives or dies on guardrails and review.
+        </span>
+      </li>
+      <li>
+        <strong>From 25 SKUs to 50,000.</strong>
+        <span>
+          A free tier of 25 products has to demonstrate the same idea that a 50,000-product plan
+          depends on.
+        </span>
+      </li>
+      <li>
+        <strong>AI search rewrote the rules.</strong>
+        <span>
+          Visibility increasingly comes from machines reading the catalog — structured data,
+          schema, FAQs. Optimizing for AI search isn't a channel test anymore; it's table stakes.
+        </span>
+      </li>
+    </ul>
+  </Act>
+
+  <Act num="03" title="The decisions">
+    <p class="lede">
+      Two sets of decisions shape this story: the founding bets — made before I arrived, and
+      still right — and the retrofit that rebuilt the experience around them.
+    </p>
+    <p class="group-label">The founding bets</p>
+    <DecisionCard
+      title="Automation with guardrails — never silent edits"
+      bet="noryX generates and prepares the changes — SEO metadata, image alt text, structured data, FAQs, descriptions — then runs them through a review-and-apply flow, at catalog scale."
+      alternative="Silent auto-apply (fast to demo, hard to trust), or manual assistance only (no leverage)."
+      why="A small team will hand a machine their catalog only if they can see and control what it does. Trust compounds; surprises don't."
+    />
+    <DecisionCard
+      title="Insights arrive as actions"
+      bet="Unify GA4, Search Console, inventory, and sales into recommendations stated as next moves — products to fix, content to publish, bundles to launch."
+      alternative="Another analytics tab that shows charts and stops."
+      why="Small teams don't lack data; they lack the next move. When the insight is “publish this draft,” the value is legible in minutes — not quarters."
+    />
+    <DecisionCard
+      title="One companion, not five subscriptions"
+      bet="SEO, content, inventory intelligence, and a chat companion in one app."
+      alternative="Point solutions: an SEO app, a blog app, an inventory app, stitched together by hope."
+      why="A solopreneur's attention and budget are the real constraints — and a bundle suggestion is only useful when it knows your stock, not just your traffic."
+    />
+    <div class="rejected">
+      <p class="rejected-head">What was ruled out</p>
+      <ul>
+        <li>Silent edits by default — review first, with auto-apply as an explicit merchant choice</li>
+        <li>Another analytics tab — insights arrive as actions</li>
+        <li>Five subscriptions — one companion, not a tool stack</li>
+      </ul>
+    </div>
+    <p class="group-label">The retrofit</p>
+    <DecisionCard
+      title="An agent with the business in its head"
+      bet="The assistant isn't a help widget — it reads the store: catalog, inventory, analytics, campaigns — and answers with the next moves, in context."
+      alternative="A generic AI chat bolted onto the sidebar — fluent, but blind to the business."
+      why="Context is what turns advice into action. An assistant that already knows the business can skip the re-explaining and go straight to the work."
+    />
+    <DecisionCard
+      title="Modernize the shell; keep the engine"
+      bet="Rebuild the surface around the engine: new navigation and search, a guided onboarding flow, and a modern design system beneath — its principles coached into the developer team, not just handed over."
+      alternative="Patch the old patterns screen by screen — or a redesign that forces merchants to relearn the product."
+      why="The engine had already earned the merchants; the interface was the gap. And principles the team understands are what keep the standard after the redesign ships."
+    />
+  </Act>
+
+  <Act num="04" title="The work">
+    <p class="study-disclosure">
+      Captures from the same demo store: the product as I found it, a working sketch, and the
+      shipped interface. Demo data throughout — the live product is on the Shopify App Store.
+    </p>
+    <div class="fig-grid fig-grid--2">
+      <Figure
+        label="Legacy capture"
+        caption="The product as I found it: a dark, dense shell — the next action buried inside columns of SEO suggestions."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={beforeSeo}
+          alt="Legacy noryX Product SEO screen — dark shell, stat cards, and a dense suggestions table with apply actions"
+          widths={[640, 1046]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Working sketch"
+        caption="The bridge before the first mock: the new shell sketched out — navigation, search, and the AI panel, side by side."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={sketchBridge}
+          alt="Dashboard sketch — sidebar, welcome hero, and an AI Copilot panel with chat and suggested prompts"
+          widths={[640, 960, 1673]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="The modernized shell, shipped: navigation and search up top, the AI Companion carrying the store’s context one click away."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={afterHome}
+          alt="Modernized noryX home — global navigation and search bar, feature shortcuts, and the AI Companion chat"
+          widths={[640, 960, 1657]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="Guided onboarding, shipped: the Companion walks operators stage by stage — the status panel shows exactly where they are."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={afterOnboarding}
+          alt="AI Companion guiding an onboarding stage beside a System Status panel with setup tasks and next steps"
+          widths={[640, 1280, 2730]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+    </div>
+    <p class="group-label">How this shipped</p>
+    <div class="shipped">
+      <div class="shipped-step">
+        <span class="shipped-step-label">Audit</span>
+        <p>The live product, audited: an engine that worked, an interface that hadn't kept pace</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Decide</span>
+        <p>Keep the trust model — review-and-apply, a human at every commit — and rebuild the experience on top of it</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Ship</span>
+        <p>New navigation and search, an agent chat with business context, guided onboarding — into a live product</p>
+      </div>
+      <div class="shipped-step">
+        <span class="shipped-step-label">Govern</span>
+        <p>A modern design system and its principles — coached into the developer team</p>
+      </div>
+    </div>
+  </Act>
+
+  <Act num="05" title="Impact & status">
+    <p>
+      Live on the{" "}
+      <a href="https://apps.shopify.com/noryx" target="_blank" rel="noopener">
+        Shopify App Store
+      </a>{" "}
+      since February 2025, with plans from free to $329/month as catalogs scale from 25 to 50,000
+      products. Early reviews are five stars. The marketing version of the facts lives on the
+      listing; this is the design version.
+    </p>
+    <div class="counted">
+      <div class="counted-item">
+        <span class="counted-num">Feb 2025</span>
+        <span class="counted-label">live on Shopify</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">5.0</span>
+        <span class="counted-label">early store rating</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">25 → 50,000</span>
+        <span class="counted-label">products, one app</span>
+      </div>
+      <div class="counted-item">
+        <span class="counted-num">4</span>
+        <span class="counted-label">plans, free to $329/mo</span>
+      </div>
+    </div>
+    <p>
+      What noryX proved inside SusTern: review-and-apply is the pattern merchants trust, and AI
+      advice gets sharper when it knows your inventory as well as your traffic. It also raised the
+      bigger question — what if the whole operation lived in one system? I made that case next:
+      the platform, where both ideas now run end to end.
+    </p>
+    <div class="proof">
+      <figure class="proof-card">
+        <blockquote>
+          <p>
+            “The auto tagging of all our pictures with actual descriptions is huge! They also
+            optimize for AI, plus learn the business in a matter of days in a way no other tool
+            has. They provide business insights, blogs, auto-make product bundles and promos — I
+            check in once a day, hit publish, and I'm good to go.”
+          </p>
+        </blockquote>
+        <figcaption>Main Street Collective L.L.C · Shopify App Store review, June 2025</figcaption>
+      </figure>
+      <figure class="proof-card">
+        <blockquote>
+          <p>
+            “Time and resources are always limited — and that's exactly where noryX has made a
+            huge difference for my business. noryX has saved me hours each week, and more
+            importantly, it's saved me money by reducing the need to outsource content and
+            strategy tasks.”
+          </p>
+        </blockquote>
+        <figcaption>RENVETA · Shopify App Store review, April 2025</figcaption>
+      </figure>
+    </div>
+    <p class="proof-source">
+      Public reviews from the{" "}
+      <a href="https://apps.shopify.com/noryx" target="_blank" rel="noopener">
+        Shopify App Store listing
+      </a>{" "}
+      — lightly edited for length and clarity. They vouch for the engine; the interface work came
+      next.
+    </p>
+  </Act>
+
+  <Act num="06" title="What I'd do differently">
+    <p>
+      I'd make the review experience even more central. Batch review at catalog scale is where
+      trust is won — it deserves to be the first screen, not the last step.
+    </p>
+    <p>
+      And I'd publish the guardrail list as a product feature: plain words for what the AI will
+      never touch without a human. The constraint is the selling point — say it on the label.
+    </p>
+  </Act>
+
+  <EndBlock nextTitle="Earlier work" nextHref="/#earlier-work" />
+</BaseLayout>
+
+<style>
+  .proof {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 720px) {
+    .proof {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .proof-card {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    padding: 20px;
+  }
+
+  .proof-card blockquote {
+    margin: 0;
+  }
+
+  .proof-card p {
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+  }
+
+  .proof-card figcaption {
+    margin-top: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .proof-source {
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .proof-source a {
+    color: var(--accent-strong);
+    text-decoration: none;
+  }
+
+  .proof-source a:hover {
+    text-decoration: underline;
+  }
+</style>

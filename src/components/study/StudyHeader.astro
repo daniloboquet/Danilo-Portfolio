@@ -1,0 +1,37 @@
+---
+interface Props {
+  num: string;
+  title: string;
+  hook: string;
+  meta: { label: string; value: string }[];
+  outcome?: string;
+}
+
+const { num, title, hook, meta, outcome } = Astro.props;
+---
+
+<header class="study-header">
+  <div class="container">
+    <p class="eyebrow">Case study · {num}</p>
+    <h1>{title}</h1>
+    <p class="study-hook">{hook}</p>
+    <dl class="study-meta">
+      {
+        meta.map((item) => (
+          <div>
+            <dt>{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    {
+      outcome && (
+        <p class="study-outcome">
+          <span class="study-outcome-label">In short</span>
+          <span>{outcome}</span>
+        </p>
+      )
+    }
+  </div>
+</header>

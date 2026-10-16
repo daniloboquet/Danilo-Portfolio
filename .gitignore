@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# macOS
+.DS_Store
+
+# Logs
+npm-debug.log*
+
+# Local planning (public repo — never commit)
+2026-10-danilo-portfolio-website-workplan.md
+capture-brief.md
+axonify-resume-audit.md
+
+# Job-search artifacts (never commit)
+Danilo_Senior_Product_Designer_Oct-2026.pdf
+Danilo_Senior_Product_Designer_Oct-2026_Page_*.png

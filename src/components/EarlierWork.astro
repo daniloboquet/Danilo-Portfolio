@@ -1,0 +1,532 @@
+---
+import { Image, getImage } from "astro:assets";
+import { earlierProjects } from "../data/earlierWork";
+
+const galleryProjects = earlierProjects.filter((p) => p.gallery?.length);
+
+// No-JS fallback: opening a tile leads to the first gallery image (built, optimized URL).
+const fallbackHrefs = new Map(
+  await Promise.all(
+    galleryProjects.map(async (p) => {
+      const first = p.gallery?.[0];
+      const optimized = first ? await getImage({ src: first.src, width: 1200 }) : undefined;
+      return [p.id, optimized?.src ?? first?.src.src ?? "#"] as const;
+    })
+  )
+);
+---
+
+<div class="earlier-grid" data-reveal>
+  {
+    earlierProjects.map((p) =>
+      p.gallery?.length ? (
+        <figure class="ew-item">
+          <a
+            class="ew-media ew-open"
+            href={fallbackHrefs.get(p.id)}
+            data-dialog={`gallery-${p.id}`}
+            aria-haspopup="dialog"
+            aria-label={`${p.title} — open gallery (${p.gallery.length} images)`}
+          >
+            <Image
+              src={p.cover}
+              alt={p.coverAlt}
+              widths={[360, 540]}
+              sizes="(max-width: 560px) 92vw, (max-width: 900px) 44vw, 300px"
+              loading="lazy"
+            />
+            <span class="ew-count" aria-hidden="true">{p.gallery.length} images</span>
+          </a>
+          <figcaption class="ew-caption">
+            <span class="ew-title">{p.title}</span>
+            <span class="ew-tag">{p.tag}</span>
+            <span class="ew-context">{p.context}</span>
+          </figcaption>
+        </figure>
+      ) : (
+        <figure class="ew-item">
+          <div class="ew-media">
+            <Image
+              src={p.cover}
+              alt={p.coverAlt}
+              widths={[360, 540]}
+              sizes="(max-width: 560px) 92vw, (max-width: 900px) 44vw, 300px"
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="ew-caption">
+            <span class="ew-title">{p.title}</span>
+            <span class="ew-tag">{p.tag}</span>
+            <span class="ew-context">{p.context}</span>
+          </figcaption>
+        </figure>
+      )
+    )
+  }
+  <div class="ew-item ew-note">
+    <p class="ew-note-text">More from the archive — brand guides, decks, and print pieces.</p>
+    <a class="ew-note-link" href="mailto:danilo.boquet@gmail.com">Request the full archive &rarr;</a>
+  </div>
+</div>
+
+{
+  galleryProjects.map((p) => (
+    <dialog class="ew-dialog" id={`gallery-${p.id}`} aria-label={`${p.title} gallery`}>
+      <div class="ew-dialog-inner">
+        <header class="ew-dialog-head">
+          <div class="ew-dialog-titles">
+            <h3>{p.title}</h3>
+            <p class="ew-dialog-meta">{p.meta ? `${p.tag} · ${p.meta}` : p.tag}</p>
+            <p class="ew-dialog-context">{p.context}</p>
+          </div>
+          <button type="button" class="ew-close" aria-label="Close gallery">
+            ✕
+          </button>
+        </header>
+        <div class="ew-track" role="group" aria-label={`${p.title} — images`}>
+          {(p.gallery ?? []).map((shot) => (
+            <figure class="ew-slide">
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                widths={[720, 1200]}
+                sizes="(max-width: 1100px) 92vw, 960px"
+                loading="lazy"
+              />
+            </figure>
+          ))}
+        </div>
+        <footer class="ew-dialog-foot">
+          <div class="ew-nav">
+            <button type="button" class="ew-prev" aria-label="Previous image">
+              ←
+            </button>
+            <button type="button" class="ew-next" aria-label="Next image">
+              →
+            </button>
+            <span class="ew-counter" aria-live="polite" aria-atomic="true">
+              1 / {(p.gallery ?? []).length}
+            </span>
+          </div>
+          {p.live && (
+            <div class="ew-live">
+              <span class="ew-live-label">View live</span>
+              {p.live.map((link) => (
+                <a href={link.href} target="_blank" rel="noopener">
+                  {link.label} <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </footer>
+      </div>
+    </dialog>
+  ))
+}
+
+<script>
+  const dialogs = document.querySelectorAll("dialog.ew-dialog");
+  const state = new WeakMap();
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let lastTrigger = null;
+
+  for (const dialog of dialogs) {
+    const track = dialog.querySelector(".ew-track");
+    const counter = dialog.querySelector(".ew-counter");
+    const prev = dialog.querySelector(".ew-prev");
+    const next = dialog.querySelector(".ew-next");
+    const close = dialog.querySelector(".ew-close");
+    if (!track || !counter || !prev || !next || !close) continue;
+
+    const total = track.children.length;
+    let raf = 0;
+
+    const update = () => {
+      const index = Math.min(
+        total,
+        Math.round(track.scrollLeft / Math.max(1, track.clientWidth)) + 1
+      );
+      counter.textContent = index + " / " + total;
+      prev.setAttribute("aria-disabled", index <= 1 ? "true" : "false");
+      next.setAttribute("aria-disabled", index >= total ? "true" : "false");
+    };
+
+    const go = (dir) => {
+      track.scrollBy({
+        left: dir * track.clientWidth,
+        behavior: reduceMotion.matches ? "auto" : "smooth",
+      });
+    };
+
+    track.addEventListener(
+      "scroll",
+      () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(update);
+      },
+      { passive: true }
+    );
+    prev.addEventListener("click", () => {
+      if (prev.getAttribute("aria-disabled") !== "true") go(-1);
+    });
+    next.addEventListener("click", () => {
+      if (next.getAttribute("aria-disabled") !== "true") go(1);
+    });
+    close.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        go(-1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        go(1);
+      }
+    });
+    dialog.addEventListener("close", () => {
+      track.scrollLeft = 0;
+      update();
+      if (lastTrigger) lastTrigger.focus();
+    });
+
+    state.set(dialog, { track, update });
+    update();
+  }
+
+  for (const trigger of document.querySelectorAll(".ew-open")) {
+    trigger.addEventListener("click", (event) => {
+      const dialog = document.getElementById(trigger.dataset.dialog || "");
+      // Without dialog support, fall through to the link's href (the image itself).
+      if (!dialog || typeof dialog.showModal !== "function") return;
+      event.preventDefault();
+      lastTrigger = trigger;
+      dialog.showModal();
+      const s = state.get(dialog);
+      if (s) {
+        s.track.scrollLeft = 0;
+        s.update();
+      }
+    });
+  }
+</script>
+
+<style>
+  .earlier-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .ew-item {
+    margin: 0;
+  }
+
+  .ew-media {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--paper-soft);
+  }
+
+  .ew-media :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s ease;
+  }
+
+  a.ew-media:hover :global(img) {
+    opacity: 0.9;
+  }
+
+  .ew-count {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 4px 9px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--paper) 90%, transparent);
+    color: var(--ink-soft);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  a.ew-media:hover .ew-count,
+  a.ew-media:focus-visible .ew-count {
+    color: var(--ink);
+    border-color: var(--ink-soft);
+  }
+
+  .ew-caption {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .ew-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .ew-item:has(a.ew-open:hover) .ew-title,
+  .ew-item:has(a.ew-open:focus-visible) .ew-title {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+
+  .ew-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+  }
+
+  .ew-context {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  .ew-note {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 22px;
+  }
+
+  .ew-note-text {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .ew-note-link {
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .ew-note-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Gallery dialog */
+
+  .ew-dialog {
+    width: min(1060px, 94vw);
+    max-height: 92vh;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--paper);
+    color: var(--ink);
+    overflow: hidden;
+  }
+
+  .ew-dialog::backdrop {
+    background: rgb(20 21 25 / 0.6);
+  }
+
+  .ew-dialog-inner {
+    display: flex;
+    flex-direction: column;
+    max-height: 92vh;
+  }
+
+  .ew-dialog-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ew-dialog-titles h3 {
+    font-size: 1.15rem;
+  }
+
+  .ew-dialog-meta {
+    margin-top: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .ew-dialog-context {
+    margin-top: 8px;
+    max-width: 70ch;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  .ew-close {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .ew-close:hover {
+    border-color: var(--ink);
+  }
+
+  .ew-track {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    background: var(--paper-soft);
+    scrollbar-width: none;
+  }
+
+  .ew-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ew-slide {
+    margin: 0;
+    flex: 0 0 100%;
+    scroll-snap-align: center;
+    display: grid;
+    place-items: center;
+    padding: clamp(10px, 2vw, 20px);
+  }
+
+  .ew-slide :global(img) {
+    max-width: 100%;
+    max-height: min(60vh, 600px);
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+  }
+
+  .ew-dialog-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 18px;
+    padding: 12px 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .ew-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .ew-prev,
+  .ew-next {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .ew-prev:hover,
+  .ew-next:hover {
+    border-color: var(--ink);
+  }
+
+  .ew-prev[aria-disabled="true"],
+  .ew-next[aria-disabled="true"] {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  .ew-counter {
+    margin-left: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+
+  .ew-live {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+  }
+
+  .ew-live-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .ew-live a {
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-size: 0.86rem;
+    text-decoration: none;
+  }
+
+  .ew-live a:hover {
+    text-decoration: underline;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ew-track {
+      scroll-behavior: auto;
+    }
+
+    .ew-media :global(img) {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .earlier-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .earlier-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ew-dialog-foot {
+      justify-content: center;
+    }
+  }
+</style>

@@ -1,0 +1,82 @@
+---
+interface Props {
+  code: string;
+  caption: string;
+  ratio?: string;
+}
+
+const { code, caption, ratio = "16 / 10" } = Astro.props;
+---
+
+<figure class="capture">
+  <div class="capture-frame" style={`aspect-ratio: ${ratio}`}>
+    <span class="capture-code">{code}</span>
+    <p class="capture-line">Reserved for a real product capture</p>
+  </div>
+  <figcaption class="capture-caption">
+    <span class="capture-label">{code} — capture requested</span>
+    <span>{caption}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .capture {
+    margin: 0;
+  }
+
+  .capture-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 28px;
+    border: 1.5px dashed color-mix(in srgb, var(--ink-faint) 55%, transparent);
+    border-radius: var(--radius);
+    background: repeating-linear-gradient(
+      45deg,
+      transparent 0 14px,
+      color-mix(in srgb, var(--paper-soft) 55%, transparent) 14px 28px
+    );
+    text-align: center;
+  }
+
+  .capture-code {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+  }
+
+  .capture-line {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .capture-caption {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+    max-width: 76ch;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.55;
+    color: var(--ink-faint);
+  }
+
+  .capture-label {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 2px 9px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+</style>

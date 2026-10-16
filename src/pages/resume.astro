@@ -1,0 +1,395 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const summary =
+  "Senior product designer and design lead with 20 years across product design, UX/UI, and brand — currently leading design for an AI-native B2B SaaS platform (multi-tenant commerce operations for retailers, distributors, and manufacturers). I work end to end — research and workflow analysis through information architecture, prototyping, and implementation — with a systems mindset: design systems, versioned patterns, and guardrails enforced in code. I care about interfaces people understand without training, and about AI that keeps humans at the decision.";
+
+const jobs = [
+  {
+    role: "Head of Product & UX/UI (AI-native SaaS Products)",
+    org: "SusTern Inc.",
+    place: "Kitchener–Waterloo, ON area",
+    dates: "May 2025 – Present",
+    bullets: [
+      "Lead product and UX design for an AI-native, multi-tenant B2B SaaS platform serving specialty retailers, distributors, and manufacturers — spanning product information and catalog, procurement, branded storefronts, 3PL logistics operations, and commercial billing.",
+      "Joined to work on noryX, SusTern’s first product (a Shopify AI growth app); saw the platform opportunity, proposed and designed the first version of the AI-Commerce platform to the founding team — now the company’s core product.",
+      "Took over noryX’s design post-launch: rebuilt the experience (navigation and search, an agent chat grounded in the full business context, guided onboarding) and introduced the design system, coaching the developer team through its principles.",
+      "Own the end-to-end design lifecycle — user research and workflow analysis, journey maps, wireframes, prototyping in Figma and VS Code, visual design, and implementation review with engineering.",
+      "Built and govern the platform design system: canonical components, versioned releases, and automated guardrail tests (CI-enforced) that protect design rules across the provider workspace.",
+      "Carried noryX’s review-and-apply pattern into the platform and gave it its platform form — AI drafts, classifies, and proposes; people decide, with provenance one step away — applied across intake, catalog, and operations.",
+      "Drive cross-functional alignment through written design rationale (options, trade-offs, rejected alternatives) and phased delivery plans with acceptance gates, partnering with product to shape the roadmap.",
+    ],
+  },
+  {
+    role: "UX Designer / Web Designer",
+    org: "Royal Distributing",
+    place: "Guelph, ON",
+    dates: "Mar 2021 – Aug 2024",
+    bullets: [
+      "Facilitated user research activities to identify user pain points and integrate usability testing into design strategies, improving user experience scores by 25%.",
+      "Designed prototypes using Figma and validated them through usability testing, iterating based on user feedback to improve conversion rates by 18%.",
+      "Conducted end-to-end UX research for enterprise SaaS platforms, including stakeholder interviews, heuristic evaluations, and competitive analysis.",
+      "Implemented task analysis and cognitive walkthroughs to optimize complex user workflows in SaaS applications, enhancing usability for power users and administrators.",
+      "Executed Quality Assurance (QA) frameworks to guide the creation of test cases for user interface checks, ensuring the reliability and efficiency of website features.",
+      "Partnered with Product teams to define new features, improving site usability and customer satisfaction.",
+      "Conducted accessibility compliance testing and implemented design adjustments based on findings.",
+      "Facilitated cross-functional collaboration between UX, engineering, and product teams using Lean UX and Agile methodologies, reducing design iteration cycles by 30%.",
+    ],
+  },
+  {
+    role: "Design Manager",
+    org: "Dutchie’s Fresh Market",
+    place: "Waterloo, ON",
+    dates: "Jun 2020 – Feb 2021",
+    bullets: [
+      "Expanded website content and features improving UI design and user engagement.",
+      "Advocated for data-driven UX improvements and redesigned key user journeys, increasing conversions by 25%.",
+      "Developed scalable design systems and workflows, streamlining feedback loops and project timelines.",
+      "Directed and executed art and UI/UX design projects resulting in an increase in brand awareness.",
+    ],
+  },
+  {
+    role: "UX Designer",
+    org: "Hatashita International",
+    place: "Waterloo, ON",
+    dates: "Jan 2020 – Apr 2020",
+    bullets: [
+      "Managed and created content for two Shopify e-commerce stores, boosting customer interaction.",
+      "Redesigned two company websites, improving UX, online brand presence, and conversions.",
+      "Led art direction, content creation, UX/UI and web design initiatives, enhancing user engagement by 20%.",
+      "Directed product development and project management, increasing customer satisfaction.",
+    ],
+  },
+  {
+    role: "Design and Marketing Manager",
+    org: "TVape",
+    place: "Toronto, ON",
+    dates: "Aug 2018 – Jan 2020",
+    bullets: [
+      "Managed e-commerce platforms for 8 websites across Canada, the USA, and Europe, overseeing all project phases to ensure timely and budget-compliant completion.",
+      "Led UX/UI Design projects that boosted conversion rates by up to 25% for both B2B and B2C initiatives.",
+      "Executed UX research by developing user interview scripts and synthesizing findings to refine user journeys.",
+      "Supervised 7 content creators while managing multiple projects concurrently to meet deadlines and optimized department performance.",
+      "Advocated for a user-centered design approach through design sprints and stakeholder workshops, ensuring alignment between business goals and user needs and improving feature prioritization.",
+    ],
+  },
+  {
+    role: "UX Designer / Web Multimedia Designer",
+    org: "TVape",
+    place: "Toronto, ON",
+    dates: "May 2017 – Jul 2018",
+    bullets: [
+      "Led the design of fully responsive, mobile-first experiences, ensuring seamless interactions across web, tablet, and mobile devices, improving usability scores.",
+      "Improved customer experience through UX design / UI design, developing information architecture, wireframes, prototypes, mockups, user flows, and high fidelity responsive interfaces, increasing user engagement.",
+      "Facilitated usability testing and used insights to iterate on clickable prototypes, enhancing brand presence and user experience.",
+      "Designed and implemented scalable interaction design frameworks, improving UI consistency and usability across multiple digital products.",
+    ],
+  },
+  {
+    role: "Design & Art Director",
+    org: "Officium Design",
+    place: "Brazil",
+    dates: "Jan 2011 – Nov 2015",
+    bullets: [
+      "Conceived over 40 new brands and created 100+ marketing materials, driving brand recognition.",
+      "Improved the quality and efficiency of projects execution, leading to a tangible reduction in production time.",
+      "Delivered high-quality image manipulation services and followed design trends, enhancing visual content and increasing viewer engagement by 25 to 35%.",
+      "Oversaw the online publishing of digital projects and social media content, ensuring timely and accurate delivery, which improved content reach and interaction.",
+    ],
+  },
+  {
+    role: "Senior Graphic Designer",
+    org: "Editora Fapi Ltda",
+    place: "Brazil",
+    dates: "Aug 2004 – Dec 2010",
+    bullets: [
+      "Created 25+ educational books, enhancing visual appeal and readability, which contributed to a 20% increase in book sales.",
+      "Produced over 15 packaging solutions, ensuring high-quality and effective product presentation.",
+      "Created two award-winning product catalogs, enhancing brand reputation and market reach.",
+      "Managed digital and printed project files with precision, ensuring organization, security, and easy accessibility, which streamlined project workflows.",
+    ],
+  },
+];
+
+const skills = [
+  { label: "UX/UI Design", text: "Figma, Adobe XD, Sketch, Axure, InVision. User research methods, prototyping and user testing" },
+  { label: "Graphic Design", text: "Adobe Creative Suite, Illustrator, Photoshop, InDesign, Lightroom" },
+  { label: "Programming languages and software", text: "HTML, JavaScript, CSS, SQL, GitHub, Visual Studio" },
+  { label: "Project management", text: "Asana, Trello, Jira. Agile and Lean methodologies, Lean UX, Scrum, Kanban, Design Sprints" },
+  { label: "Analytics / Testing", text: "CrazyEgg, ABTasty, Convert Experiences, Google Analytics, Lighthouse, Google Insights" },
+  { label: "Content Management Systems", text: "Magento, BigCommerce, Shopify, WordPress" },
+  {
+    label: "Essential skills",
+    text: "Empathy, flexible, multi-tasker, collaborative, easygoing, responsible. Great at problem solving and critical thinking, time management, prioritization and organizational skills. Highly analytical and creative. Great attention to details and excellent communication skills.",
+  },
+];
+
+const certifications = [
+  { name: "Fundamentals of UI/UX Design", issuer: "Microsoft", date: "Oct 2024" },
+  { name: "Agile User Experience Design and Research", issuer: "LinkedIn Learning", date: "Sep 2024" },
+  { name: "Introduction to User Experience Design", issuer: "Georgia Institute of Technology", date: "Sep 2024" },
+  { name: "Interaction Design: Design Patterns as Building Blocks", issuer: "LinkedIn Learning", date: "Aug 2024" },
+  { name: "Complete Web & Mobile Designer: UI/UX, Figma, +more", issuer: "Udemy", date: "Aug 2024" },
+  { name: "Adaptable Manager", issuer: "Forrest & Company Limited", date: "Jan 2023" },
+  { name: "Design Thinking", issuer: "Interaction Design Foundation (IDF)", date: "May 2022" },
+  { name: "Human-Computer Interaction", issuer: "Interaction Design Foundation (IDF)", date: "Apr 2022" },
+];
+
+const education = [
+  {
+    degree: "Diploma of Computer Programming",
+    org: "Seneca College",
+    place: "Toronto",
+    dates: "Jan 2016 – Aug 2017",
+    note: "GPA: 3.93/4.0. Programming and web scripting languages, systems methodologies, website design, Internet client and server side development, design and maintenance of database systems, and data communications.",
+  },
+  {
+    degree: "Bachelor of Applied Science — Product Design",
+    org: "Universidade do Estado de Minas Gerais",
+    place: "Brazil",
+    dates: "Feb 2004 – Dec 2008",
+    note: "GPA: 3.8/4.0. Product and Industrial Design. Development of user flows, wireframes, and prototypes. Product design and concept creation, project management, investigate and analyse problems, research methodologies, innovation techniques, and ergonomics.",
+  },
+];
+---
+
+<BaseLayout
+  title="Résumé — Danilo Boquet"
+  description="Résumé of Danilo Boquet — senior product designer and design lead with 20 years across product, UX/UI, and brand; currently leading design for an AI-native B2B SaaS platform at SusTern."
+>
+  <section class="section resume">
+    <div class="container">
+      <div class="r-head" data-reveal>
+        <div>
+          <p class="eyebrow">Résumé</p>
+          <h1>Danilo Boquet</h1>
+          <p class="r-role">Senior Product Designer</p>
+        </div>
+        <div class="r-actions">
+          <a class="btn btn-primary" href="/resume.pdf">Download PDF</a>
+          <a class="btn btn-ghost" href="mailto:danilo.boquet@gmail.com">Email</a>
+        </div>
+      </div>
+      <p class="r-contact" data-reveal>
+        Woodstock, ON · danilo.boquet@gmail.com · danilo-designer.com ·
+        linkedin.com/in/danilo-de-resende-boquet · Updated October 2026
+      </p>
+      <p class="r-summary" data-reveal>{summary}</p>
+
+      <div class="r-section">
+        <h2>Experience</h2>
+        {
+          jobs.map((job) => (
+            <article class="r-job">
+              <div class="r-job-top">
+                <h3>{job.role}</h3>
+                <span class="r-job-dates">{job.dates}</span>
+              </div>
+              <p class="r-job-org">
+                {job.org} · {job.place}
+              </p>
+              <ul>
+                {job.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="r-section">
+        <h2>Core Skills</h2>
+        <ul class="r-skills">
+          {
+            skills.map((skill) => (
+              <li>
+                <strong>{skill.label}:</strong> {skill.text}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="r-section">
+        <h2>Certifications</h2>
+        <ul class="r-certs">
+          {
+            certifications.map((cert) => (
+              <li>
+                {cert.name} — {cert.issuer} <span>· {cert.date}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="r-section">
+        <h2>Education</h2>
+        {
+          education.map((entry) => (
+            <article class="r-job">
+              <div class="r-job-top">
+                <h3>{entry.degree}</h3>
+                <span class="r-job-dates">{entry.dates}</span>
+              </div>
+              <p class="r-job-org">
+                {entry.org} · {entry.place}
+              </p>
+              <p class="r-edu-note">{entry.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .r-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .r-head h1 {
+    margin-top: 14px;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+  }
+
+  .r-role {
+    margin-top: 6px;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+  }
+
+  .r-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .r-contact {
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    line-height: 1.8;
+    color: var(--ink-faint);
+  }
+
+  .r-summary {
+    margin-top: 22px;
+    max-width: 76ch;
+    color: var(--ink);
+    font-size: 1.02rem;
+  }
+
+  .r-section {
+    margin-top: clamp(36px, 6vw, 56px);
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .r-section h2 {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .r-job {
+    margin-top: 28px;
+  }
+
+  .r-job-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 16px;
+  }
+
+  .r-job h3 {
+    font-size: 1.02rem;
+  }
+
+  .r-job-dates {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+
+  .r-job-org {
+    margin-top: 3px;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  .r-job ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .r-job li {
+    max-width: 76ch;
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+  }
+
+  .r-skills,
+  .r-certs {
+    margin: 18px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+
+  .r-skills li {
+    max-width: 82ch;
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+  }
+
+  .r-skills strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .r-certs li {
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+  }
+
+  .r-certs span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+  }
+
+  .r-edu-note {
+    margin-top: 10px;
+    max-width: 82ch;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+
+  @media print {
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.skip-link) {
+      display: none;
+    }
+
+    .r-actions {
+      display: none;
+    }
+  }
+</style>

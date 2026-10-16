@@ -1,0 +1,32 @@
+---
+interface Props {
+  /** Unique id base for aria wiring (e.g. "shipping-pilot"). */
+  id: string;
+  eyebrow?: string;
+  title: string;
+  description: string;
+  href: string;
+  cta?: string;
+  note: string;
+}
+
+const {
+  id,
+  eyebrow = "Interactive prototype",
+  title,
+  description,
+  href,
+  cta = "Open the prototype",
+  note,
+} = Astro.props;
+---
+
+<aside class="proto-callout" aria-labelledby={`${id}-title`}>
+  <p class="proto-eyebrow">{eyebrow}</p>
+  <h3 id={`${id}-title`}>{title}</h3>
+  <p class="proto-desc">{description}</p>
+  <a class="btn proto-cta" href={href} target="_blank" rel="noopener" aria-describedby={`${id}-note`}>
+    {cta} <span aria-hidden="true">↗</span>
+  </a>
+  <p class="proto-note" id={`${id}-note`}>{note}</p>
+</aside>

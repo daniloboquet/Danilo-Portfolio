@@ -1,0 +1,478 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { projects } from "../data/projects";
+import ContactForm from "../components/ContactForm.astro";
+import EarlierWork from "../components/EarlierWork.astro";
+import heroMontage from "../assets/home/hero-montage.png";
+
+const testimonials = [
+  {
+    quote: "Danilo's UX/UI skills and advanced software knowledge have been crucial to our success. He always makes sure our projects are delivered on time and to a high standard.",
+    name: "Rushi Bhatt",
+    role: "Director of E-Commerce",
+  },
+  {
+    quote: "What truly sets Danilo apart is his unwavering dedication to customer experience. Every decision he made was guided by a deep understanding of our customers' needs and how to exceed their expectations. This customer-centric approach was the driving force behind our successful UX strategies and digital campaigns, leading to significant growth for the company.",
+    name: "Valeriia Zholobova",
+    role: "E-Commerce | Digital Marketing professional",
+  },
+  {
+    quote: "Danilo is one of the most hardworking, intelligent, and friendliest humans I have ever had the pleasure of working with. Any organization would be very lucky to have him!",
+    name: "Adam Monastero",
+    role: "Video Content Lead",
+  },
+  {
+    quote: "Working with Danilo was such an amazing experience because of all the skills he brought to the table: web designer, UX/UI, graphic design, packaging, corporate communications, digital marketing campaigns.",
+    name: "Alejandro Zaldua",
+    role: "Quality Auditor | Graphic Designer",
+  },
+  {
+    quote: "Danilo brought a wealth of knowledge and experience to the team, driving our marketing strategy with creativity and a data-driven approach.",
+    name: "Veronica Medina",
+    role: "Motion Graphic Artist",
+  },
+];
+---
+
+<BaseLayout
+  title="Danilo Boquet — Senior Product Designer"
+  description="Senior product designer and Head of Product & UX/UI at SusTern. I design complex B2B platforms — AI-native commerce, logistics, and storefronts — so they feel effortless."
+>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow" data-reveal>Danilo Boquet — Senior Product Designer</p>
+      <h1 data-reveal>I design complex platforms that feel effortless.</h1>
+      <p class="hero-sub" data-reveal>
+        I'm a senior product designer — currently Head of Product &amp; UX/UI at SusTern, where I brought
+        the first version of the AI-native commerce platform to the team and now lead its design —
+        from the first Shopify app to the logistics platform derived from it. I turn tangled B2B
+        workflows into interfaces designed to be understood without training.
+      </p>
+      <div class="hero-cta" data-reveal>
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost" href="mailto:danilo.boquet@gmail.com">Get in touch</a>
+      </div>
+      <div class="hero-media" data-reveal>
+        <Image
+          src={heroMontage}
+          alt="The noryX dashboard with its AI Companion and the SusTern TPL document-intake workspace, side by side"
+          widths={[960, 1440, 1920]}
+          sizes="(max-width: 1080px) 92vw, 1000px"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  <div class="brands">
+    <div class="container brands-inner">
+      <span class="brands-label">Worked across</span>
+      <span class="brands-names">SusTern · Royal Distributing · TVape · Zeus · Jücee</span>
+    </div>
+  </div>
+
+  <section id="work" class="section">
+    <div class="container">
+      <h2 data-reveal>Selected work</h2>
+      <p class="section-lead" data-reveal>
+        One arc, three products — the app that brought me in, the platform I made the case for,
+        and the logistics layer derived from it.
+      </p>
+      <div class="work-list" data-reveal>
+        {
+          projects.map((project) => (
+            <a class="work-item" href={`/work/${project.slug}/`}>
+              <span class="work-num">{project.num}</span>
+              <span class="work-body">
+                <span class="work-title">{project.title}</span>
+                <span class="work-hook">{project.hook}</span>
+                <span class="work-meta">{project.meta}</span>
+              </span>
+              <span class="work-arrow" aria-hidden="true">
+                &rarr;
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section doctrine">
+    <div class="container">
+      <h2 data-reveal>How I design</h2>
+      <p class="section-lead" data-reveal>
+        Three principles, applied from a Shopify app to a logistics platform.
+      </p>
+      <div class="doctrine-grid" data-reveal>
+        <div class="principle">
+          <span class="principle-num">01</span>
+          <h3>AI drafts; humans decide.</h3>
+          <p>Every automated step can show its work — and a person keeps the pen at the commit.</p>
+        </div>
+        <div class="principle">
+          <span class="principle-num">02</span>
+          <h3>Systems before screens.</h3>
+          <p>
+            I build the pattern library and the rules that keep it honest, so the next screen
+            ships faster than the last.
+          </p>
+        </div>
+        <div class="principle">
+          <span class="principle-num">03</span>
+          <h3>Meet people where they are.</h3>
+          <p>
+            No app, no training, no login — voice, SMS, and links for the people the software is
+            actually for.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="earlier-work" class="section">
+    <div class="container">
+      <h2 data-reveal>Earlier work</h2>
+      <p class="section-lead" data-reveal>
+        Before SusTern — nearly two decades of design work across two countries: e-commerce,
+        brand, and print. Open a project to look closer.
+      </p>
+      <EarlierWork />
+    </div>
+  </section>
+
+  <section id="testimonials" class="section">
+    <div class="container">
+      <h2 data-reveal>What colleagues say</h2>
+      <p class="section-lead" data-reveal>
+        Recommendations from people I've shipped with — more on LinkedIn.
+      </p>
+      <div class="testi-grid" data-reveal>
+        {
+          testimonials.map((t) => (
+            <figure class="testi">
+              <blockquote>
+                <p>&ldquo;{t.quote}&rdquo;</p>
+              </blockquote>
+              <figcaption>
+                <span class="testi-name">{t.name}</span>
+                <span class="testi-role">{t.role}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+        <a
+          class="testi testi-more"
+          href="https://www.linkedin.com/in/danilo-de-resende-boquet/"
+          rel="noopener"
+        >
+          <span class="testi-more-label">More</span>
+          <span class="testi-more-text">Recommendations on LinkedIn</span>
+          <span class="testi-more-arrow" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 data-reveal>Let's talk.</h2>
+      <p class="contact-sub" data-reveal>
+        Hiring for a product design role, or building something complex? I'd love to hear about it.
+      </p>
+      <div class="contact-actions" data-reveal>
+        <a class="btn contact-btn-primary" href="mailto:danilo.boquet@gmail.com">
+          danilo.boquet@gmail.com
+        </a>
+        <a
+          class="btn contact-btn-ghost"
+          href="https://www.linkedin.com/in/danilo-de-resende-boquet/"
+          rel="noopener"
+        >
+          LinkedIn
+        </a>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: clamp(72px, 13vw, 148px) clamp(56px, 9vw, 110px);
+  }
+
+  .hero h1 {
+    margin-top: 18px;
+    max-width: 15ch;
+    font-size: clamp(2.5rem, 6.5vw, 4.4rem);
+  }
+
+  .hero-sub {
+    margin-top: 22px;
+    max-width: 58ch;
+    color: var(--ink-soft);
+    font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  }
+
+  .hero-cta {
+    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .hero-media {
+    margin-top: 48px;
+  }
+
+  .hero-media :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .brands {
+    border-top: 1px solid var(--line);
+    background: var(--paper-soft);
+  }
+
+  .brands-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 10px 18px;
+    padding-block: 14px;
+  }
+
+  .brands-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .brands-names {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .doctrine-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+
+  .principle {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    padding: 22px;
+  }
+
+  .principle-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent-strong);
+  }
+
+  .principle h3 {
+    margin-top: 10px;
+    font-size: 1.08rem;
+  }
+
+  .principle p {
+    margin-top: 10px;
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+  }
+
+  @media (max-width: 900px) {
+    .doctrine-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .work-list {
+    margin-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    gap: clamp(12px, 3vw, 32px);
+    align-items: start;
+    padding-block: 30px;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    transition: background-color 0.18s ease;
+  }
+
+  .work-item:hover {
+    background: color-mix(in srgb, var(--paper-soft) 60%, transparent);
+  }
+
+  .work-num {
+    padding-top: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+  }
+
+  .work-title {
+    display: block;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .work-item:hover .work-title {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .work-hook {
+    display: block;
+    margin-top: 8px;
+    max-width: 62ch;
+    color: var(--ink-soft);
+  }
+
+  .work-meta {
+    display: block;
+    margin-top: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+  }
+
+  .work-arrow {
+    padding-top: 2px;
+    font-size: 1.4rem;
+    color: var(--ink-faint);
+    transition: transform 0.18s ease, color 0.18s ease;
+  }
+
+  .work-item:hover .work-arrow {
+    transform: translateX(4px);
+    color: var(--accent-strong);
+  }
+
+  .testi-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 18px;
+  }
+
+  .testi {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    padding: 22px;
+  }
+
+  .testi blockquote {
+    margin: 0;
+  }
+
+  .testi p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+
+  .testi figcaption {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .testi-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+
+  .testi-role {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+
+  .testi-more {
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .testi-more-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-faint);
+  }
+
+  .testi-more-text {
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+
+  .testi-more-arrow {
+    color: var(--accent-strong);
+    font-size: 1.2rem;
+  }
+
+  .contact {
+    background: var(--ink);
+    color: var(--paper);
+    padding-block: clamp(64px, 10vw, 120px);
+  }
+
+  .contact h2 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  .contact-sub {
+    margin-top: 16px;
+    max-width: 52ch;
+    color: color-mix(in srgb, var(--paper) 68%, transparent);
+    font-size: clamp(1rem, 1.5vw, 1.15rem);
+  }
+
+  .contact-actions {
+    margin-top: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .contact-btn-primary {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  .contact-btn-primary:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .contact-btn-ghost {
+    border-color: color-mix(in srgb, var(--paper) 28%, transparent);
+    color: var(--paper);
+  }
+
+  .contact-btn-ghost:hover {
+    border-color: var(--paper);
+  }
+</style>

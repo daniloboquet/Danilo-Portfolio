@@ -1,0 +1,72 @@
+---
+const links = [
+  { href: "/#work", label: "Work" },
+  { href: "/about", label: "About" },
+  { href: "/resume/", label: "Résumé" },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="wordmark" href="/">Danilo&nbsp;Boquet</a>
+    <nav class="nav" aria-label="Primary">
+      {links.map((link) => <a class="nav-link" href={link.href}>{link.label}</a>)}
+      <a class="btn btn-primary nav-cta" href="mailto:danilo.boquet@gmail.com">Let&rsquo;s talk</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 14px;
+  }
+
+  .wordmark {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 3vw, 28px);
+    font-size: 0.93rem;
+  }
+
+  .nav-link {
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--ink);
+  }
+
+  .nav-cta {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.88rem;
+  }
+
+  @media (max-width: 480px) {
+    .nav {
+      gap: 12px;
+    }
+
+    .nav-cta {
+      padding: 0.5rem 0.85rem;
+    }
+  }
+</style>

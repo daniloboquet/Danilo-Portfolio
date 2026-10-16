@@ -4,12 +4,15 @@ import StudyHeader from "../../components/study/StudyHeader.astro";
 import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
-import CapturePlaceholder from "../../components/study/CapturePlaceholder.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
 import { Image } from "astro:assets";
-import screenReceiving from "../../assets/tpl/screen-01-receiving.png";
-import screenHandoff from "../../assets/tpl/screen-02-handoff.png";
-import screenIntake from "../../assets/tpl/screen-03-intake.png";
+import screenOverview from "../../assets/tpl/screen-04-overview.png";
+import screenSetup from "../../assets/tpl/screen-05-setup.png";
+import screenQueue from "../../assets/tpl/screen-06-queue.png";
+import screenRowReview from "../../assets/tpl/screen-07-row-review.png";
+import screenReviewDecision from "../../assets/tpl/screen-08-review-decision.png";
+import screenReviewEvidence from "../../assets/tpl/screen-09-review-evidence.png";
+import screenWorkOrder from "../../assets/tpl/screen-10-work-order.png";
 import "../../styles/study.css";
 ---
 
@@ -25,7 +28,7 @@ import "../../styles/study.css";
       { label: "Role", value: "Product & UX design lead" },
       { label: "Company", value: "SusTern" },
       { label: "Timeline", value: "2025 — present" },
-      { label: "Scope", value: "Intake, receiving, dispatch, billing, design system" },
+      { label: "Scope", value: "Intake, receiving, assembly, dispatch, billing, design system" },
     ]}
     outcome="Four review surfaces → one. One decision per row. No new backend endpoints. Two confirmations — deliberately placed."
   />
@@ -117,65 +120,101 @@ import "../../styles/study.css";
       Real product captures below are labelled “Sanitized capture” (provider demo workspace);
       composed figures are labelled “Reconstruction.”
     </p>
-    <div class="fig-grid">
+    <p class="group-label">The workspace</p>
+    <div class="fig-grid fig-grid--2">
       <Figure
         label="Sanitized capture"
-        caption="The consolidated workspace: source documents, evidence, and domain handoffs in one place. Scope requirements appear as guidance — namespace, facility, grant — instead of disabled walls."
+        caption="The morning view: one scoped home — client and facility in the header, exceptions counted above the fold. Zeros stay quiet; the counters with work in them carry the color."
         pad={false}
+        zoom
       >
         <Image
-          src={screenIntake}
-          alt="Document intake workspace with four handoff cards and an upload panel with namespace, facility, role, and file fields"
-          widths={[640, 960, 1356]}
-          sizes="(max-width: 720px) 92vw, 1040px"
+          src={screenOverview}
+          alt="Provider workspace overview: client and facility selectors, attention counters with inventory exceptions and receiving to review highlighted, performance score and SLA metrics, and client footprint tiles"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 500px"
           loading="lazy"
         />
       </Figure>
       <Figure
         label="Sanitized capture"
-        caption="Consolidation made visible — the old source-intake tab now hands operators to the single workspace instead of keeping a second upload path alive."
+        caption="Requirements as guidance, not walls: services confirmed, facility next, time estimates on each step, the form in place."
         pad={false}
+        zoom
       >
         <Image
-          src={screenHandoff}
-          alt="Source intake tab showing a notice that uploads and reviews moved to the document intake workspace"
-          widths={[640, 960, 1348]}
-          sizes="(max-width: 720px) 92vw, 1040px"
-          loading="lazy"
-        />
-      </Figure>
-      <Figure
-        label="Sanitized capture"
-        caption="The operational side of Inbound — receiving, returns and grading, and source intake sharing one surface and one vocabulary."
-        pad={false}
-      >
-        <Image
-          src={screenReceiving}
-          alt="Receiving form with reference number, line items, lot and condition fields, and a confirm receipt action"
-          widths={[640, 960, 1356]}
-          sizes="(max-width: 720px) 92vw, 1040px"
+          src={screenSetup}
+          alt="Workspace setup checklist with a progress bar, a completed provider services step, and an in-progress provider facility form"
+          widths={[640, 960, 1614]}
+          sizes="(max-width: 720px) 92vw, 500px"
           loading="lazy"
         />
       </Figure>
     </div>
     <div class="fig-grid">
-      <CapturePlaceholder
-        code="#C1"
-        caption="The exception-first queue: status chips, one reason line, one action per row, “show ready” folded away. Completes the before → after pair with the handoff capture above."
-      />
-      <CapturePlaceholder
-        code="#C3"
-        caption="Commercial billing after the redesign: one row, one derived action, confirmations only where money and irreversibility meet."
-      />
+      <Figure
+        label="Sanitized capture"
+        caption="The consolidated workspace in practice: source documents, evidence, and domain handoffs in one queue — no second upload path. A needs-review record above a ready one, one reason line and one action per row, “Show ready” under the operator’s control."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenQueue}
+          alt="Document intake queue with readiness guidance banners, filters including Show ready, a needs-review row with a Review issues action, and a ready row with its assembly handoff"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="The row, opened: draft facts arrive sectioned and counted — 46 findings, 78 flagged discrepancies — each batch accepted on its own, or all 46 at once. “Review and approve before these facts are used” is the rule; the record’s single decision surface is the fullscreen review."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenRowReview}
+          alt="An intake row expanded into draft facts: finding and discrepancy counts with batch acceptance controls for the finished good, BOM components, routing steps, and tagged clips"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
     </div>
     <div class="fig-grid fig-grid--2">
-      <CapturePlaceholder
-        code="#C2"
-        caption="The review surface: decide first, evidence one reveal away, one primary action in the footer."
-      />
+      <Figure
+        label="Sanitized capture"
+        caption="One review surface per record: what acceptance will create is stated and counted — products, variants, inventory, BOM lines, routing, accepted mappings — with the gaps that still block attached to the same decision."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenReviewDecision}
+          alt="Document review decision tab: the assembly handoff summary, reviewer reference and inventory location fields, approval action, missing-item flags, and a table of what acceptance will create"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+      <Figure
+        label="Sanitized capture"
+        caption="Evidence one reveal away: the document itself — pages stamped valid, findings grouped and batchable — and the unresolved counts said out loud: 0 of 14 pages accepted, 79 open questions."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenReviewEvidence}
+          alt="Document review evidence tab: page thumbnails stamped valid, the source document viewer, an assembly-at-a-glance summary, and pending counts for page roles, details, and open questions"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 500px"
+          loading="lazy"
+        />
+      </Figure>
+    </div>
+    <div class="fig-grid">
       <Figure
         label="Reconstruction"
-        caption="One term per concept, locked across every surface — the quiet work that makes the loud screens simple."
+        caption="One vocabulary, locked across every surface — one term per concept, the quiet work that makes the loud screens simple."
       >
         <div class="vocab">
           <div class="vocab-col vocab-dim">
@@ -200,15 +239,22 @@ import "../../styles/study.css";
         </div>
       </Figure>
     </div>
-    <div class="fig-grid fig-grid--2">
-      <CapturePlaceholder
-        code="#C4"
-        caption="The calm end of the queue: nothing to chase. “Attention-first” works because it can also be quiet."
-      />
-      <CapturePlaceholder
-        code="#C5"
-        caption="The provider workspace on a narrow screen — one decision at a time survives the phone."
-      />
+    <p class="group-label">The floor</p>
+    <div class="fig-grid">
+      <Figure
+        label="Sanitized capture"
+        caption="The same grammar on the floor: one work order advances one bounded stage at a time, evidence coverage is stated honestly, and every exception carries an owner and a next action."
+        pad={false}
+        zoom
+      >
+        <Image
+          src={screenWorkOrder}
+          alt="Assembly work order detail: an evidence-coverage-blocked banner naming missing mappings, two ordered stages with their progress, execution actions, and an open partial-failure exception with owner and next action"
+          widths={[640, 960, 1525]}
+          sizes="(max-width: 720px) 92vw, 1040px"
+          loading="lazy"
+        />
+      </Figure>
     </div>
     <p class="group-label">How this shipped</p>
     <div class="shipped">
@@ -264,8 +310,8 @@ import "../../styles/study.css";
     </div>
     <p>
       What doesn't exist yet is operator outcome data: the newest flows shipped weeks ago, and
-      I'd rather show you the structure than a number I can't defend. The structure is checkable
-      in the screenshots above.
+      I'd rather show you the structure than a number I can't defend. The intake and review
+      structure is checkable in the screenshots above.
     </p>
   </Act>
 

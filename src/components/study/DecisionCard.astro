@@ -17,12 +17,12 @@ const { title, bet, alternative, why } = Astro.props;
       <p>{bet}</p>
     </div>
     <div>
-      <span class="decision-label">The alternative</span>
-      <p>{alternative}</p>
-    </div>
-    <div>
       <span class="decision-label">Why it won</span>
       <p>{why}</p>
     </div>
   </div>
+  <details class="decision-alt">
+    <summary>The alternative we rejected</summary>
+    <p>{alternative}</p>
+  </details>
 </article>

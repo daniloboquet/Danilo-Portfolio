@@ -147,8 +147,8 @@ const fallbackHrefs = new Map(
         Math.round(track.scrollLeft / Math.max(1, track.clientWidth)) + 1
       );
       counter.textContent = index + " / " + total;
-      prev.setAttribute("aria-disabled", index <= 1 ? "true" : "false");
-      next.setAttribute("aria-disabled", index >= total ? "true" : "false");
+      prev.disabled = index <= 1;
+      next.disabled = index >= total;
     };
 
     const go = (dir) => {
@@ -167,10 +167,10 @@ const fallbackHrefs = new Map(
       { passive: true }
     );
     prev.addEventListener("click", () => {
-      if (prev.getAttribute("aria-disabled") !== "true") go(-1);
+      if (!prev.disabled) go(-1);
     });
     next.addEventListener("click", () => {
-      if (next.getAttribute("aria-disabled") !== "true") go(1);
+      if (!next.disabled) go(1);
     });
     close.addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (event) => {
@@ -465,8 +465,8 @@ const fallbackHrefs = new Map(
     border-color: var(--ink);
   }
 
-  .ew-prev[aria-disabled="true"],
-  .ew-next[aria-disabled="true"] {
+  .ew-prev:disabled,
+  .ew-next:disabled {
     opacity: 0.35;
     pointer-events: none;
   }

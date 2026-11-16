@@ -62,6 +62,12 @@ const testimonials = [
           loading="eager"
           fetchpriority="high"
         />
+        <p class="hero-links">
+          <span>In view</span>
+          <a href="/work/noryx/">noryX</a>
+          <a href="/work/ai-commerce/">AI-Commerce</a>
+          <a href="/work/tpl-platform/">TPL Platform</a>
+        </p>
       </div>
     </div>
   </section>
@@ -226,6 +232,35 @@ const testimonials = [
 
   .hero-media {
     margin-top: 48px;
+  }
+
+  .hero-links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 5px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+
+  .hero-links span {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-links a {
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .hero-links a:hover {
+    color: var(--accent-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .hero-media :global(img) {

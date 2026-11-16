@@ -37,7 +37,18 @@ const canonical = new URL(Astro.url.pathname, site).href;
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline>
+      document.documentElement.classList.add("js");
+      // If the bundled reveal script never initializes, show everything rather
+      // than leaving the page invisible.
+      window.setTimeout(function () {
+        if (!window.__revealInit) {
+          document.querySelectorAll("[data-reveal]").forEach(function (el) {
+            el.classList.add("is-in");
+          });
+        }
+      }, 2500);
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,18 +66,28 @@ const canonical = new URL(Astro.url.pathname, site).href;
     <script>
       const els = document.querySelectorAll("[data-reveal]");
       if (els.length) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("is-in");
-                io.unobserve(entry.target);
-              }
-            }
-          },
-          { rootMargin: "0px 0px -8% 0px" }
-        );
-        els.forEach((el) => io.observe(el));
+        const revealAll = () => els.forEach((el) => el.classList.add("is-in"));
+        if (!("IntersectionObserver" in window)) {
+          revealAll();
+        } else {
+          window.__revealInit = true;
+          try {
+            const io = new IntersectionObserver(
+              (entries) => {
+                for (const entry of entries) {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("is-in");
+                    io.unobserve(entry.target);
+                  }
+                }
+              },
+              { rootMargin: "0px 0px -8% 0px" }
+            );
+            els.forEach((el) => io.observe(el));
+          } catch {
+            revealAll();
+          }
+        }
       }
     </script>
   </body>

@@ -1,0 +1,30 @@
+---
+interface Item {
+  num: string;
+  title: string;
+}
+
+interface Props {
+  items: Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav class="study-toc" aria-label="On this page">
+  <div class="container">
+    <span class="study-toc-label">On this page</span>
+    <ol>
+      {
+        items.map((item) => (
+          <li>
+            <a href={`#act-${item.num}`}>
+              <span class="study-toc-num">{item.num}</span>
+              <span>{item.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</nav>

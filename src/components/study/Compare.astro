@@ -1,0 +1,103 @@
+---
+interface Tab {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  id: string;
+  tabs: Tab[];
+  defaultTab?: string;
+  label?: string;
+}
+
+const { id, tabs, defaultTab = tabs[0]?.id, label = "Compare views" } = Astro.props;
+const activeId = tabs.some((tab) => tab.id === defaultTab) ? defaultTab : tabs[0]?.id;
+const panels = await Promise.all(
+  tabs.map(async (tab) => ({
+    ...tab,
+    html: await Astro.slots.render(tab.id),
+  }))
+);
+---
+
+<div class="cmp" id={id} data-cmp data-cmp-active={tabs.findIndex((tab) => tab.id === activeId)}>
+  <div class="cmp-tabs" role="tablist" aria-label={label}>
+    {
+      tabs.map((tab) => (
+        <button
+          type="button"
+          class:list={["cmp-tab", tab.id === activeId && "is-active"]}
+          role="tab"
+          id={`${id}-tab-${tab.id}`}
+          aria-selected={tab.id === activeId}
+          aria-controls={`${id}-panel-${tab.id}`}
+          tabindex={tab.id === activeId ? 0 : -1}
+          data-cmp-tab
+        >
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+  {
+    panels.map((panel) => (
+      <div
+        class:list={["cmp-panel", panel.id === activeId && "is-active"]}
+        id={`${id}-panel-${panel.id}`}
+        role="tabpanel"
+        aria-labelledby={`${id}-tab-${panel.id}`}
+        data-cmp-panel
+        tabindex="0"
+      >
+        <p class="cmp-panel-label">{panel.label}</p>
+        <Fragment set:html={panel.html} />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  for (const cmp of document.querySelectorAll<HTMLElement>("[data-cmp]")) {
+    const tabs = Array.from(cmp.querySelectorAll<HTMLButtonElement>("[data-cmp-tab]"));
+    const panels = Array.from(cmp.querySelectorAll<HTMLElement>("[data-cmp-panel]"));
+    if (!tabs.length || tabs.length !== panels.length) continue;
+
+    let active = Number(cmp.dataset.cmpActive || 0);
+
+    const activate = (next: number, focus = false) => {
+      active = (next + tabs.length) % tabs.length;
+      cmp.dataset.cmpActive = String(active);
+      tabs.forEach((tab, index) => {
+        const isActive = index === active;
+        tab.classList.toggle("is-active", isActive);
+        tab.setAttribute("aria-selected", String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        panels[index].classList.toggle("is-active", isActive);
+        panels[index].hidden = !isActive;
+      });
+      if (focus) tabs[active]?.focus();
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activate(index));
+      tab.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          event.preventDefault();
+          activate(active + 1, true);
+        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          event.preventDefault();
+          activate(active - 1, true);
+        } else if (event.key === "Home") {
+          event.preventDefault();
+          activate(0, true);
+        } else if (event.key === "End") {
+          event.preventDefault();
+          activate(tabs.length - 1, true);
+        }
+      });
+    });
+
+    activate(active);
+  }
+</script>

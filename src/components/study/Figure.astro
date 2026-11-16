@@ -38,7 +38,15 @@ if (zoom) {
 <figure class="figure">
   {
     zoom && zoomHref ? (
-      <a class="figure-zoom" href={zoomHref} target="_blank" rel="noopener">
+      <a
+        class="figure-zoom"
+        href={zoomHref}
+        target="_blank"
+        rel="noopener"
+        data-lightbox
+        data-lightbox-src={zoomHref}
+        data-lightbox-caption={caption}
+      >
         <div class:list={["figure-frame", !pad && "figure-frame--bleed"]} set:html={slotHtml} />
       </a>
     ) : (
@@ -54,41 +62,6 @@ if (zoom) {
 </figure>
 
 <script>
-  const zoomLinks = document.querySelectorAll("a.figure-zoom");
-  if (zoomLinks.length) {
-    let dialog = null;
-    let opener = null;
-
-    const ensureDialog = () => {
-      if (dialog) return dialog;
-      dialog = document.createElement("dialog");
-      dialog.className = "zoom-dialog";
-      const img = document.createElement("img");
-      img.alt = "";
-      dialog.append(img);
-      document.body.append(dialog);
-      dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) dialog.close();
-      });
-      dialog.addEventListener("close", () => {
-        if (opener instanceof HTMLElement) opener.focus();
-      });
-      return dialog;
-    };
-
-    for (const link of zoomLinks) {
-      link.addEventListener("click", (event) => {
-        if (typeof HTMLDialogElement === "undefined") return; // fall back to the link
-        event.preventDefault();
-        const source = link.querySelector("img");
-        const d = ensureDialog();
-        const img = d.querySelector("img");
-        img.src = link.href;
-        img.alt = source ? source.alt : "";
-        d.setAttribute("aria-label", source && source.alt ? source.alt : "Full-size image");
-        opener = link;
-        d.showModal();
-      });
-    }
-  }
+  import { initLightbox } from "../../scripts/lightbox";
+  initLightbox();
 </script>

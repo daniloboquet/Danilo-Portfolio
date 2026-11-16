@@ -1,24 +1,37 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudyHeader from "../../components/study/StudyHeader.astro";
+import StudyToc from "../../components/study/StudyToc.astro";
 import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
+import Compare from "../../components/study/Compare.astro";
 import Figure from "../../components/study/Figure.astro";
+import AnnotatedFigure from "../../components/study/AnnotatedFigure.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
 import { Image } from "astro:assets";
 import screenOverview from "../../assets/tpl/screen-04-overview.png";
 import screenSetup from "../../assets/tpl/screen-05-setup.png";
-import screenQueue from "../../assets/tpl/screen-06-queue.png";
+import screenQueue from "../../assets/tpl/screen-08-queue.png";
 import screenRowReview from "../../assets/tpl/screen-07-row-review.png";
-import screenReviewDecision from "../../assets/tpl/screen-08-review-decision.png";
+import screenReviewDecision from "../../assets/tpl/screen-06-review-decision.png";
 import screenReviewEvidence from "../../assets/tpl/screen-09-review-evidence.png";
 import screenWorkOrder from "../../assets/tpl/screen-10-work-order.png";
 import "../../styles/study.css";
+
+const acts = [
+  { num: "01", title: "The scene" },
+  { num: "02", title: "The constraint" },
+  { num: "03", title: "The decisions" },
+  { num: "04", title: "The work" },
+  { num: "05", title: "The second pass" },
+  { num: "06", title: "Impact & status" },
+  { num: "07", title: "What I'd do differently" },
+];
 ---
 
 <BaseLayout
   title="SusTern TPL Platform — one decision at a time — Danilo Boquet"
-  description="Redesigning third-party logistics operations: one review surface per record, an exception-first queue, and one locked vocabulary across a provider workspace."
+  description="Redesigning third-party logistics operations: one review surface per record, an exception-first queue, and one locked vocabulary — then a second pass that split editing from deciding."
 >
   <StudyHeader
     num="02"
@@ -30,8 +43,10 @@ import "../../styles/study.css";
       { label: "Timeline", value: "2025 — present" },
       { label: "Scope", value: "Intake, receiving, assembly, dispatch, billing, design system" },
     ]}
-    outcome="Four review surfaces → one. One decision per row. No new backend endpoints. Two confirmations — deliberately placed."
+    outcome="Four review surfaces → one. Review edits in place; Approve decides. No new backend endpoints. Two confirmations — deliberately placed."
   />
+
+  <StudyToc items={acts} />
 
   <Act num="01" title="The scene: a stack of documents, one question each">
     <p class="lede">
@@ -152,20 +167,35 @@ import "../../styles/study.css";
       </Figure>
     </div>
     <div class="fig-grid">
-      <Figure
+      <AnnotatedFigure
+        id="tpl-queue"
         label="Sanitized capture"
         caption="The consolidated workspace in practice: source documents, evidence, and domain handoffs in one queue — no second upload path. A needs-review record above a ready one, one reason line and one action per row, “Show ready” under the operator’s control."
-        pad={false}
-        zoom
-      >
-        <Image
-          src={screenQueue}
-          alt="Document intake queue with readiness guidance banners, filters including Show ready, a needs-review row with a Review issues action, and a ready row with its assembly handoff"
-          widths={[640, 960, 1525]}
-          sizes="(max-width: 720px) 92vw, 1040px"
-          loading="lazy"
-        />
-      </Figure>
+        src={screenQueue}
+        alt="Document intake queue with readiness guidance banners, filters including Show ready, a needs-review row with a Review issues action, and a ready row with its assembly handoff"
+        widths={[640, 960, 1525]}
+        sizes="(max-width: 720px) 92vw, 1040px"
+        annotations={[
+          {
+            x: 73.8,
+            y: 69.8,
+            title: "Attention first",
+            body: "Conflicts and missing information sort above ready records. The queue is ordered by consequence, not arrival time.",
+          },
+          {
+            x: 94.5,
+            y: 72.4,
+            title: "One action per row",
+            body: "Each document’s state derives exactly one action — Review issues, or continue to its workspace. No hunting.",
+          },
+          {
+            x: 62.0,
+            y: 33.2,
+            title: "Ready stays folded",
+            body: "The Show ready toggle keeps ready records out of the way until the operator asks for them.",
+          },
+        ]}
+      />
       <Figure
         label="Sanitized capture"
         caption="The row, opened: draft facts arrive sectioned and counted — 46 findings, 78 flagged discrepancies — each batch accepted on its own, or all 46 at once. “Review and approve before these facts are used” is the rule; the record’s single decision surface is the fullscreen review."
@@ -181,8 +211,17 @@ import "../../styles/study.css";
         />
       </Figure>
     </div>
-    <div class="fig-grid fig-grid--2">
+    <Compare
+      id="tpl-review-tabs"
+      label="Review tabs"
+      defaultTab="decision"
+      tabs={[
+        { id: "decision", label: "Decision" },
+        { id: "evidence", label: "Evidence" },
+      ]}
+    >
       <Figure
+        slot="decision"
         label="Sanitized capture"
         caption="One review surface per record: what acceptance will create is stated and counted — products, variants, inventory, BOM lines, routing, accepted mappings — with the gaps that still block attached to the same decision."
         pad={false}
@@ -192,11 +231,12 @@ import "../../styles/study.css";
           src={screenReviewDecision}
           alt="Document review decision tab: the assembly handoff summary, reviewer reference and inventory location fields, approval action, missing-item flags, and a table of what acceptance will create"
           widths={[640, 960, 1525]}
-          sizes="(max-width: 720px) 92vw, 500px"
+          sizes="(max-width: 720px) 92vw, 1040px"
           loading="lazy"
         />
       </Figure>
       <Figure
+        slot="evidence"
         label="Sanitized capture"
         caption="Evidence one reveal away: the document itself — pages stamped valid, findings grouped and batchable — and the unresolved counts said out loud: 0 of 14 pages accepted, 79 open questions."
         pad={false}
@@ -206,11 +246,11 @@ import "../../styles/study.css";
           src={screenReviewEvidence}
           alt="Document review evidence tab: page thumbnails stamped valid, the source document viewer, an assembly-at-a-glance summary, and pending counts for page roles, details, and open questions"
           widths={[640, 960, 1525]}
-          sizes="(max-width: 720px) 92vw, 500px"
+          sizes="(max-width: 720px) 92vw, 1040px"
           loading="lazy"
         />
       </Figure>
-    </div>
+    </Compare>
     <div class="fig-grid">
       <Figure
         label="Reconstruction"
@@ -277,14 +317,268 @@ import "../../styles/study.css";
     </div>
   </Act>
 
-  <Act num="05" title="Impact & status">
+  <Act num="05" title="The second pass: a workbench and a decision">
+    <p class="lede">
+      The first release made the review one surface. The second pass started from a simple
+      observation: the review was still doing two jobs — correcting the record and making the
+      decision — with the same editable components behind both tabs.
+    </p>
+    <p>
+      Review carried a per-record confirm loop: accept this field, remove that one, repeat.
+      Approve reused the same inputs with only the submit button hidden. Operators validated
+      twice, filled in the reviewer reference twice, and had to guess which tab actually
+      committed the document. The fix wasn't more polish. It was separating the jobs.
+    </p>
+    <p>
+      Review is now a workbench: every extracted field is editable in place, fields can be
+      included or excluded, advanced fields open in the row, and one save path persists the
+      correction. Approve is read-only: it shows the final record and makes one decision for
+      the complete included set. No per-record confirm, no second reviewer reference, and no
+      edit control on Approve.
+    </p>
+
+    <DecisionCard
+      title="Review is a workbench; Approve is the decision"
+      bet="Split the tabs by job. Review edits — every field, include/exclude, one save path. Approve renders the final record read-only, and one action confirms every included field at once."
+      alternative="Keep both tabs editable with a per-record Confirm and Remove loop — the model the first release shipped."
+      why="Two tabs with the same behavior made the operator validate twice and choose a primary action twice. When a tab tells you what it's for, the decision is the only thing left on the screen."
+    />
+    <DecisionCard
+      title="Edit in the table, not in a second form"
+      bet="Make the review table the editor: prefilled, editable cells; document-wide fields moved to their own block; rare fields one row detail away. No Edit button, no synthetic editor row, no second modal. Saving is never approving."
+      alternative="A summary row with an Edit button that opens a child form or a second modal."
+      why="The source document has to stay visible while the operator corrects it. The table keeps evidence and edit in the same glance — the old pattern covered the evidence with the form and added a surface to maintain."
+    />
+
+    <p class="study-disclosure">
+      No new captures were available for this pass, so the figure below reconstructs the
+      shipped pattern from the design documentation. Sanitized captures are added as they clear
+      review.
+    </p>
+    <Compare
+      id="tpl-review-compare"
+      label="Review before and after"
+      defaultTab="after"
+      tabs={[
+        { id: "after", label: "After" },
+        { id: "before", label: "Before" },
+      ]}
+    >
+      <Figure
+        slot="before"
+        label="Reconstruction"
+        caption="Before: two tabs, one behavior — a per-record confirm loop inside Review, and the same inputs again inside Approve."
+      >
+          <div class="fx">
+            <div class="fx-bar">
+              <span class="fx-dots"><span></span><span></span><span></span></span>
+              <span class="fx-title">Document review — before</span>
+            </div>
+            <div class="fx-body">
+              <p class="pass-state"><strong>Review</strong> and <strong>Approve</strong> — both editable</p>
+              <div class="pass-itemrow">
+                <span class="pass-item">Walnut dining chair</span>
+                <span class="pass-meta">48 shipped · 46 received</span>
+                <span class="pass-actions">
+                  <span class="pass-action">Confirm</span>
+                  <span class="pass-action pass-action-quiet">Remove</span>
+                </span>
+              </div>
+              <div class="pass-itemrow">
+                <span class="pass-item">Oak side table</span>
+                <span class="pass-meta">24 shipped · 24 received</span>
+                <span class="pass-actions">
+                  <span class="pass-action">Confirm</span>
+                  <span class="pass-action pass-action-quiet">Remove</span>
+                </span>
+              </div>
+              <div class="pass-itemrow">
+                <span class="pass-item">Walnut dining table</span>
+                <span class="pass-meta">12 shipped · 12 received</span>
+                <span class="pass-actions">
+                  <span class="pass-action">Confirm</span>
+                  <span class="pass-action pass-action-quiet">Remove</span>
+                </span>
+              </div>
+              <div class="pass-foot">
+                <span class="pass-meta">
+                  Bill to, ship to, and document number repeat in every row.
+                </span>
+                <span class="pass-note">same components on Approve</span>
+              </div>
+            </div>
+          </div>
+      </Figure>
+      <Figure
+        slot="after"
+        label="Reconstruction"
+        caption="After: one job per tab — Review edits in place and saves; Approve is read-only and makes the only decision. The source document stays visible throughout."
+      >
+        <div class="fx">
+            <div class="fx-bar">
+              <span class="fx-dots"><span></span><span></span><span></span></span>
+              <span class="fx-title">Document review — after</span>
+            </div>
+            <div class="fx-body">
+
+              <p class="pass-label">Review — correct the record</p>
+              <div class="pass-editrow">
+                <span class="pass-check pass-check-on"></span>
+                <span class="pass-item">Walnut dining chair</span>
+                <span class="pass-qty">
+                  <span class="pass-input">
+                    48<span class="pass-input-label">shipped</span>
+                  </span>
+                  <span class="pass-input pass-input-focus">
+                    46<span class="pass-input-label">received</span>
+                  </span>
+                </span>
+                <span class="pass-detail">row detail</span>
+              </div>
+              <div class="pass-editrow">
+                <span class="pass-check pass-check-on"></span>
+                <span class="pass-item">Oak side table</span>
+                <span class="pass-qty">
+                  <span class="pass-input">
+                    24<span class="pass-input-label">shipped</span>
+                  </span>
+                  <span class="pass-input">
+                    24<span class="pass-input-label">received</span>
+                  </span>
+                </span>
+                <span class="pass-detail">row detail</span>
+              </div>
+              <div class="pass-editrow">
+                <span class="pass-check pass-check-on"></span>
+                <span class="pass-item">Walnut dining table</span>
+                <span class="pass-qty">
+                  <span class="pass-input">
+                    12<span class="pass-input-label">shipped</span>
+                  </span>
+                  <span class="pass-input">
+                    12<span class="pass-input-label">received</span>
+                  </span>
+                </span>
+                <span class="pass-detail">row detail</span>
+              </div>
+              <div class="pass-foot">
+                <span class="pass-action pass-action-primary">Save changes</span>
+                <span class="pass-note">saving never approves</span>
+              </div>
+              <div class="pass-divide"></div>
+              <p class="pass-label">Approve — make the decision</p>
+              <div class="pass-summary">
+                <span><strong>3</strong> items included</span>
+                <span><strong>2</strong> discrepancies resolved</span>
+                <span><strong>1</strong> decision confirms all</span>
+              </div>
+              <div class="pass-foot">
+                <span class="pass-action pass-action-primary">Approve document</span>
+                <span class="pass-ref">Reviewer reference</span>
+                <span class="pass-note">read-only</span>
+              </div>
+            </div>
+          </div>
+      </Figure>
+    </Compare>
+
+    <p class="group-label">The closeout, in decisions</p>
+    <p>
+      The review screen wasn't the only place the interface and the contract disagreed. A
+      closeout audit covered the workflows around it — access, intake, the queue, CSV limits,
+      cleanup — and each finding became a written decision: a rationale, an owner, a
+      verification path, and a status.
+    </p>
+    <div class="declog">
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">Access applies only on an explicit action</p>
+          <p class="declog-why">
+            The role-to-access mapping stays reviewable and editable; nothing is applied until
+            a person presses “Apply approved mapping.”
+          </p>
+        </div>
+        <span class="declog-status">In release</span>
+      </div>
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">One file at a time, said out loud</p>
+          <p class="declog-why">
+            The CSV limit is announced before selection, and extra files are rejected with
+            guidance instead of silently truncated. Mapping per file stays a follow-up, not a
+            surprise.
+          </p>
+        </div>
+        <span class="declog-status">In release</span>
+      </div>
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">Call the queue what it is</p>
+          <p class="declog-why">
+            Renamed Review queue and scoped to the provider administrators who can actually use
+            it. No implied supervisor role, no dead end for the people the label promised.
+          </p>
+        </div>
+        <span class="declog-status">In release</span>
+      </div>
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">Archive is the soft delete</p>
+          <p class="declog-why">
+            Facilities and client namespaces archive and restore; grants, documents, evidence,
+            and audit history stay. No new table, no migration, no provider-facing hard delete.
+          </p>
+        </div>
+        <span class="declog-status">In release</span>
+      </div>
+    </div>
+    <p class="study-disclosure">
+      Code and tests are in place across these four decisions; the representative-role
+      walkthroughs are still pending. I'm leaving that gap visible rather than claiming a
+      sign-off the team hasn't recorded yet.
+    </p>
+
+    <p class="group-label">What's on the table next</p>
+    <p>
+      Two more decisions are written and waiting on design-system approval. They aren't
+      shipped — they show where the same principles are pulling next.
+    </p>
+    <div class="declog">
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">A record deserves a page, not a drawer</p>
+          <p class="declog-why">
+            Inbound receiving is a long, multi-step review. It moves from a right-side drawer to
+            a full record page with a URL, refresh-safe state, and a line table wider than a
+            modal allows. Rejected: a wider drawer, a bigger modal, an expand button.
+          </p>
+        </div>
+        <span class="declog-status declog-status-pending">Proposed</span>
+      </div>
+      <div class="declog-row">
+        <div>
+          <p class="declog-title">One filter anatomy across six catalog tabs</p>
+          <p class="declog-why">
+            Products, variants, inventory, BOM, routing, and reconciliation get one stable
+            block: the same three bands in the same order, quick filters and actions on one
+            line, a sheet on mobile. No per-tab height jumps.
+          </p>
+        </div>
+        <span class="declog-status declog-status-pending">Proposed</span>
+      </div>
+    </div>
+  </Act>
+
+  <Act num="06" title="Impact & status">
     <p>
       Recently shipped — and I'll be precise about that. The four review surfaces became one; the
       queue leads with exceptions and derives one action per row; intake terminology is locked
-      across the workspace. Commercial billing went from a hand-rolled page to a governed flow
-      with confirmations on every irreversible step. And the platform's design system now ships
-      in versioned releases with automated guardrail tests, so the patterns hold across a
-      workspace that spans intake, receiving, dispatch, inventory, assembly, billing, and returns.
+      across the workspace. Then the review got a second pass: Review and Approve separated into
+      a workbench and a decision, and the review tables became editable in place. Commercial
+      billing went from a hand-rolled page to a governed flow with confirmations on every
+      irreversible step. And the platform's design system now ships in versioned releases with
+      automated guardrail tests, so the patterns hold across a workspace that spans intake,
+      receiving, dispatch, inventory, assembly, billing, and returns.
     </p>
     <div class="counted">
       <div class="counted-item">
@@ -307,15 +601,26 @@ import "../../styles/study.css";
         <span class="counted-num">Green</span>
         <span class="counted-label">full suite, guardrails included</span>
       </div>
+      <div class="counted-item">
+        <span class="counted-num">0</span>
+        <span class="counted-label">editor modals in the review</span>
+      </div>
     </div>
     <p>
       What doesn't exist yet is operator outcome data: the newest flows shipped weeks ago, and
-      I'd rather show you the structure than a number I can't defend. The intake and review
-      structure is checkable in the screenshots above.
+      I'd rather show you the structure than a number I can't defend. The intake structure is
+      checkable in the screenshots above. The review split shipped for receiving evidence and
+      spreadsheet BOMs; the PDF consolidation is still rolling out.
     </p>
   </Act>
 
-  <Act num="06" title="What I'd do differently">
+  <Act num="07" title="What I'd do differently">
+    <p>
+      I'd have separated editing from deciding on day one. The one-surface rule was right, but a
+      workbench and a decision are different tools; giving both tabs the same editable components
+      made both slower. The second pass fixed the shape — after the operators had taught us where
+      the seam was.
+    </p>
     <p>
       I'd lock terminology in week one. Doing it at consolidation meant re-teaching every screen
       that already existed.

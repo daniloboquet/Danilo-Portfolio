@@ -10,7 +10,6 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnpjlbdz";
   data-endpoint={FORMSPREE_ENDPOINT}
   action={FORMSPREE_ENDPOINT}
   method="POST"
-  novalidate
 >
   <input type="hidden" name="_subject" value="Portfolio contact — danilo-designer.com" />
   <input
@@ -44,6 +43,9 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/mnpjlbdz";
 <script>
   const form = document.querySelector("form.contact-form");
   if (form instanceof HTMLFormElement) {
+    // Native validation remains the no-JS fallback; with JS we use the
+    // inline messages below.
+    form.noValidate = true;
     const status = form.querySelector(".cf-status");
     const submit = form.querySelector(".cf-submit");
     const fallbackEmail = "danilo.boquet@gmail.com";

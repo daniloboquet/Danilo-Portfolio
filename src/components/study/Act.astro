@@ -7,7 +7,7 @@ interface Props {
 const { num, title } = Astro.props;
 ---
 
-<section class="act">
+<section class="act" id={`act-${num}`}>
   <div class="container">
     <div class="act-head">
       <span class="act-num">{num}</span>

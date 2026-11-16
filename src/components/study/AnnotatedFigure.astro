@@ -1,0 +1,141 @@
+---
+import { Image, getImage } from "astro:assets";
+
+interface Annotation {
+  x: number;
+  y: number;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  id: string;
+  src: ImageMetadata;
+  alt: string;
+  caption: string;
+  label?: string;
+  annotations: Annotation[];
+  widths?: number[];
+  sizes?: string;
+}
+
+const {
+  id,
+  src,
+  alt,
+  caption,
+  label,
+  annotations,
+  widths = [640, 960, src.width],
+  sizes = "(max-width: 720px) 92vw, 1040px",
+} = Astro.props;
+
+const zoom = await getImage({ src, width: Math.min(src.width, 1600) });
+---
+
+<figure class="figure af" id={id} data-af data-af-active="0">
+  <div class="figure-frame figure-frame--bleed">
+    <div class="af-stage">
+      <Image src={src} alt={alt} widths={widths} sizes={sizes} loading="lazy" />
+      {
+        annotations.map((annotation, index) => (
+          <button
+            type="button"
+            class="af-dot"
+            style={`--x:${annotation.x}%;--y:${annotation.y}%`}
+            aria-label={`Annotation ${index + 1}: ${annotation.title}`}
+            aria-controls={`${id}-note-${index}`}
+            aria-expanded={index === 0}
+            data-af-dot={index}
+          >
+            {index + 1}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+  <figcaption>
+    {label && <span class="figure-label">{label}</span>}
+    <span>{caption}</span>
+  </figcaption>
+  <p class="af-tools">
+    <a
+      href={zoom.src}
+      target="_blank"
+      rel="noopener"
+      data-lightbox
+      data-lightbox-src={zoom.src}
+      data-lightbox-alt={alt}
+      data-lightbox-caption={caption}
+    >
+      Open full size
+    </a>
+    <span>Tap a number to read the note.</span>
+  </p>
+  <ol class="af-list">
+    {
+      annotations.map((annotation, index) => (
+        <li class:list={["af-item", index === 0 && "is-active"]}>
+          <button
+            type="button"
+            class="af-item-toggle"
+            aria-expanded={index === 0}
+            aria-controls={`${id}-note-${index}`}
+            data-af-item={index}
+          >
+            <span class="af-num">{index + 1}</span>
+            <span class="af-title">{annotation.title}</span>
+          </button>
+          <div class="af-body" id={`${id}-note-${index}`} data-af-body={index}>
+            <p>{annotation.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<script>
+  import { initLightbox } from "../../scripts/lightbox";
+  initLightbox();
+
+  for (const figure of document.querySelectorAll<HTMLElement>("[data-af]")) {
+    const dots = Array.from(figure.querySelectorAll<HTMLButtonElement>("[data-af-dot]"));
+    const items = Array.from(figure.querySelectorAll<HTMLButtonElement>("[data-af-item]"));
+    const bodies = Array.from(figure.querySelectorAll<HTMLElement>("[data-af-body]"));
+    if (!dots.length || dots.length !== items.length || items.length !== bodies.length) continue;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let active = Number(figure.dataset.afActive || 0);
+
+    const activate = (next: number, scroll = false) => {
+      active = Math.min(Math.max(next, 0), items.length - 1);
+      figure.dataset.afActive = String(active);
+      dots.forEach((dot, index) => {
+        dot.classList.toggle("is-active", index === active);
+        dot.setAttribute("aria-expanded", String(index === active));
+      });
+      items.forEach((item, index) => {
+        const isActive = index === active;
+        item.closest(".af-item")?.classList.toggle("is-active", isActive);
+        item.setAttribute("aria-expanded", String(isActive));
+        bodies[index].hidden = !isActive;
+      });
+      if (scroll) {
+        items[active]?.closest(".af-item")?.scrollIntoView({
+          block: "nearest",
+          behavior: reduceMotion.matches ? "auto" : "smooth",
+        });
+      }
+    };
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => activate(index, true));
+    });
+    items.forEach((item, index) => {
+      item.addEventListener("click", () => activate(index));
+    });
+
+    activate(active);
+  }
+</script>

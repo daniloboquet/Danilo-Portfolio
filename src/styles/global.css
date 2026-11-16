@@ -25,6 +25,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep anchor targets clear of the sticky header */
+:where(section[id], .act[id]) {
+  scroll-margin-top: 92px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

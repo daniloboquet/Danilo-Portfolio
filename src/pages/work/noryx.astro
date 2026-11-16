@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudyHeader from "../../components/study/StudyHeader.astro";
+import StudyToc from "../../components/study/StudyToc.astro";
 import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
@@ -11,6 +12,15 @@ import sketchBridge from "../../assets/noryx/selected/sketch-bridge.png";
 import afterHome from "../../assets/noryx/selected/after-home.png";
 import afterOnboarding from "../../assets/noryx/selected/after-onboarding.png";
 import "../../styles/study.css";
+
+const acts = [
+  { num: "01", title: "The scene" },
+  { num: "02", title: "The constraints" },
+  { num: "03", title: "The decisions" },
+  { num: "04", title: "The work" },
+  { num: "05", title: "Impact & status" },
+  { num: "06", title: "What I'd do differently" },
+];
 ---
 
 <BaseLayout
@@ -29,6 +39,8 @@ import "../../styles/study.css";
     ]}
     outcome="Rebuilt the UX post-launch in 2025 · the review-and-apply pattern the platform adopted · live on Shopify since Feb 2025, 5.0 across the first reviews."
   />
+
+  <StudyToc items={acts} />
 
   <Act num="01" title="The scene: six thousand products, one person">
     <p class="lede">

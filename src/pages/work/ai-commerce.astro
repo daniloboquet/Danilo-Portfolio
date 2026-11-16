@@ -1,9 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StudyHeader from "../../components/study/StudyHeader.astro";
+import StudyToc from "../../components/study/StudyToc.astro";
 import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
+import AnnotatedFigure from "../../components/study/AnnotatedFigure.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
 import PrototypeCallout from "../../components/study/PrototypeCallout.astro";
 import { pitchPrototype, shippingPilotPrototype } from "../../data/prototypes";
@@ -13,6 +15,15 @@ import screenAgentRfqDraft from "../../assets/ai-commerce/screen-02-agent-rfq-dr
 import screenImportReview from "../../assets/ai-commerce/screen-03-import-review.png";
 import screenAgentRegistry from "../../assets/ai-commerce/screen-04-agent-registry.png";
 import "../../styles/study.css";
+
+const acts = [
+  { num: "01", title: "The scene" },
+  { num: "02", title: "The constraints" },
+  { num: "03", title: "The decisions" },
+  { num: "04", title: "The work" },
+  { num: "05", title: "Impact & status" },
+  { num: "06", title: "What I'd do differently" },
+];
 ---
 
 <BaseLayout
@@ -31,6 +42,8 @@ import "../../styles/study.css";
     ]}
     outcome="Pitched the platform, designed the system — one catalog for retail and wholesale; storefronts, admin, and the network shipped."
   />
+
+  <StudyToc items={acts} />
 
   <Act num="01" title="The scene: the work around a product">
     <p class="lede">
@@ -146,8 +159,8 @@ import "../../styles/study.css";
 
   <Act num="04" title="The work">
     <p class="study-disclosure">
-      Figures below reconstruct shipped patterns from the design documentation and are labelled
-      “Reconstruction.” Sanitized product captures are added as they clear review.
+      Figures below mix labelled reconstructions with sanitized product captures (demo
+      workspace). The label carries the distinction.
     </p>
     <div class="fig-grid fig-grid--2">
       <Figure
@@ -214,6 +227,8 @@ import "../../styles/study.css";
           </div>
         </div>
       </Figure>
+    </div>
+    <div class="fig-grid">
       <Figure
         label="Sanitized capture"
         caption="The admin overview — one workspace for the whole business: top products, inventory health, recent orders, and the assistant in reach."
@@ -224,24 +239,43 @@ import "../../styles/study.css";
           src={screenAdminOverview}
           alt="Merchant admin command center: top-products chart, customer pulse, inventory health, recent orders with a status donut, and the assistant panel open"
           widths={[640, 960, 1874]}
-          sizes="(max-width: 720px) 92vw, 500px"
+          sizes="(max-width: 720px) 92vw, 1040px"
           loading="lazy"
         />
       </Figure>
-      <Figure
+    </div>
+    <div class="fig-grid">
+      <AnnotatedFigure
+        id="ai-rfq"
         label="Sanitized capture"
         caption="An AI proposal in context — the agent reads the conversation and drafts the RFQ with its summary; the operator decides in the thread: Review & Send or Discard."
-        pad={false}
-        zoom
-      >
-        <Image
-          src={screenAgentRfqDraft}
-          alt="CRM relationship inbox with a bulk-order thread: an agent summary, an agent-created RFQ draft with Review & Send and Discard actions, and the customer message that triggered it"
-          widths={[640, 960, 1604]}
-          sizes="(max-width: 720px) 92vw, 500px"
-          loading="lazy"
-        />
-      </Figure>
+        src={screenAgentRfqDraft}
+        alt="CRM relationship inbox with a bulk-order thread: an agent summary, an agent-created RFQ draft with Review & Send and Discard actions, and the customer message that triggered it"
+        widths={[640, 960, 1604]}
+        sizes="(max-width: 720px) 92vw, 1040px"
+        annotations={[
+          {
+            x: 69.8,
+            y: 49.6,
+            title: "The agent reads the thread",
+            body: "The summary states the ask in one line: 20 Aurora units, availability and lead time to confirm.",
+          },
+          {
+            x: 69.8,
+            y: 57.2,
+            title: "A draft, not an action",
+            body: "The RFQ is staged with its source; nothing is sent until the operator reviews it.",
+          },
+          {
+            x: 46.6,
+            y: 64.6,
+            title: "The human decides",
+            body: "Review & Send or Discard — the decision stays in the thread, with the proposal attached.",
+          },
+        ]}
+      />
+    </div>
+    <div class="fig-grid fig-grid--2">
       <Figure
         label="Sanitized capture"
         caption="Eleven agents, one approval model — the registry keeps every automation a named actor: low-risk tasks run pre-approved, higher-stake decisions wait for the operator."

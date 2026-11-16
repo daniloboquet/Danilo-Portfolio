@@ -4,7 +4,31 @@ import { Image } from "astro:assets";
 import { projects } from "../data/projects";
 import ContactForm from "../components/ContactForm.astro";
 import EarlierWork from "../components/EarlierWork.astro";
+import ProcessRail from "../components/ProcessRail.astro";
 import heroMontage from "../assets/home/hero-montage.png";
+
+const processSteps = [
+  {
+    label: "Audit",
+    text: "Watch the work, map the flow, count the friction. Start with the constraint the operation actually has.",
+    artifact: "Friction log · workflow map",
+  },
+  {
+    label: "Decide",
+    text: "Put the options and trade-offs on one page. Commit to one contract; record the alternatives you rejected.",
+    artifact: "Decision record · rejected alternatives",
+  },
+  {
+    label: "Ship",
+    text: "Cut the smallest honest slice. Put it behind an acceptance gate; every slice has to be usable.",
+    artifact: "Phased workplan · acceptance gate",
+  },
+  {
+    label: "Govern",
+    text: "Move the pattern into the system. Turn the rule into a test so the next screen is harder to get wrong.",
+    artifact: "Design-system pattern · guardrail test",
+  },
+];
 
 const testimonials = [
   {
@@ -106,33 +130,39 @@ const testimonials = [
     </div>
   </section>
 
-  <section class="section doctrine">
+  <section class="section">
     <div class="container">
       <h2 data-reveal>How I design</h2>
       <p class="section-lead" data-reveal>
-        Three principles, applied from a Shopify app to a logistics platform.
+        One loop I run on every product — and three principles that keep it honest.
       </p>
-      <div class="doctrine-grid" data-reveal>
-        <div class="principle">
-          <span class="principle-num">01</span>
-          <h3>AI drafts; humans decide.</h3>
-          <p>Every automated step can show its work — and a person keeps the pen at the commit.</p>
-        </div>
-        <div class="principle">
-          <span class="principle-num">02</span>
-          <h3>Systems before screens.</h3>
-          <p>
-            I build the pattern library and the rules that keep it honest, so the next screen
-            ships faster than the last.
-          </p>
-        </div>
-        <div class="principle">
-          <span class="principle-num">03</span>
-          <h3>Meet people where they are.</h3>
-          <p>
-            No app, no training, no login — voice, SMS, and links for the people the software is
-            actually for.
-          </p>
+      <div data-reveal>
+        <p class="process-label">The loop</p>
+        <ProcessRail steps={processSteps} variant="home" label="The process" />
+        <p class="process-label process-label--principles">Operating principles</p>
+        <div class="principles">
+          <div class="principle">
+            <span class="principle-num">01</span>
+            <h3>AI drafts; humans decide.</h3>
+            <p>Every automated step can show its work — and a person keeps the pen at the commit.</p>
+          </div>
+          <div class="principle">
+            <span class="principle-num">02</span>
+            <h3>Systems before screens.</h3>
+            <p>
+              I build the pattern library and the rules that keep it honest, so the next screen
+              ships faster than the last.
+            </p>
+          </div>
+          <div class="principle">
+            <span class="principle-num">03</span>
+            <h3>Meet people where they are.</h3>
+            <p>
+              An app has to earn the install: fit the work already happening — app, text, or link
+              — and cut the training, login, or channel switch that makes people adapt to the
+              software.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -295,40 +325,52 @@ const testimonials = [
     font-size: 0.92rem;
   }
 
-  .doctrine-grid {
-    margin-top: 36px;
+  .process-label {
+    margin: 30px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .process-label--principles {
+    margin-top: 34px;
+  }
+
+  .principles {
+    margin-top: 14px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 22px;
   }
 
   .principle {
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: #fff;
-    padding: 22px;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
   }
 
   .principle-num {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     color: var(--accent-strong);
   }
 
   .principle h3 {
-    margin-top: 10px;
-    font-size: 1.08rem;
+    margin-top: 6px;
+    font-size: 1.02rem;
   }
 
   .principle p {
-    margin-top: 10px;
+    margin-top: 6px;
     color: var(--ink-soft);
-    font-size: 0.93rem;
+    font-size: 0.9rem;
   }
 
   @media (max-width: 900px) {
-    .doctrine-grid {
+    .principles {
       grid-template-columns: 1fr;
+      gap: 18px;
     }
   }
 

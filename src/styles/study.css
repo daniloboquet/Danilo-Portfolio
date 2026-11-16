@@ -1708,52 +1708,6 @@ html:not(.js) .af-dot {
   font-weight: 700;
 }
 
-/* ---------- Shipped strip ---------- */
-
-.shipped {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #fff;
-}
-
-.shipped-step {
-  padding: 16px 18px;
-}
-
-.shipped-step + .shipped-step {
-  border-left: 1px solid var(--line);
-}
-
-.shipped-step-label {
-  display: block;
-  margin-bottom: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-strong);
-}
-
-.shipped-step p {
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-}
-
-@media (max-width: 800px) {
-  .shipped {
-    grid-template-columns: 1fr;
-  }
-
-  .shipped-step + .shipped-step {
-    border-left: none;
-    border-top: 1px solid var(--line);
-  }
-}
-
 /* ---------- Counted block ---------- */
 
 .counted {

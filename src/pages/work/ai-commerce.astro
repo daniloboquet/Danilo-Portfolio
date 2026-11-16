@@ -7,6 +7,7 @@ import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
 import AnnotatedFigure from "../../components/study/AnnotatedFigure.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
+import ProcessRail from "../../components/ProcessRail.astro";
 import PrototypeCallout from "../../components/study/PrototypeCallout.astro";
 import { pitchPrototype, shippingPilotPrototype } from "../../data/prototypes";
 import { Image } from "astro:assets";
@@ -23,6 +24,25 @@ const acts = [
   { num: "04", title: "The work" },
   { num: "05", title: "Impact & status" },
   { num: "06", title: "What I'd do differently" },
+];
+
+const shippedSteps = [
+  {
+    label: "Audit",
+    text: "Every surface reviewed against one design language as the platform grew",
+  },
+  {
+    label: "Decide",
+    text: "One shell, one catalog, one vocabulary — alternatives documented",
+  },
+  {
+    label: "Ship",
+    text: "Storefronts, admin, and network shipped without forking the product",
+  },
+  {
+    label: "Govern",
+    text: "The pattern library versioned; new surfaces assemble from canonical parts",
+  },
 ];
 ---
 
@@ -312,24 +332,7 @@ const acts = [
       browsing into a conversation.
     </p>
     <p class="group-label">How this shipped</p>
-    <div class="shipped">
-      <div class="shipped-step">
-        <span class="shipped-step-label">Audit</span>
-        <p>Every surface reviewed against one design language as the platform grew</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Decide</span>
-        <p>One shell, one catalog, one vocabulary — alternatives documented</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Ship</span>
-        <p>Storefronts, admin, and network shipped without forking the product</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Govern</span>
-        <p>The pattern library versioned; new surfaces assemble from canonical parts</p>
-      </div>
-    </div>
+    <ProcessRail steps={shippedSteps} label="How this shipped" />
   </Act>
 
   <Act num="05" title="Impact & status">

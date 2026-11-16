@@ -1,0 +1,122 @@
+---
+interface Step {
+  label: string;
+  text: string;
+  artifact?: string;
+}
+
+interface Props {
+  steps: Step[];
+  variant?: "home" | "study";
+  label?: string;
+}
+
+const { steps, variant = "study", label } = Astro.props;
+---
+
+<ol class:list={["process-rail", `process-rail--${variant}`]} aria-label={label}>
+  {
+    steps.map((step, index) => (
+      <li class="process-step">
+        <span class="process-step-head">
+          <span class="process-step-num" aria-hidden="true">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span class="process-step-label">{step.label}</span>
+        </span>
+        <p>{step.text}</p>
+        {step.artifact && <span class="process-step-artifact">{step.artifact}</span>}
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .process-rail {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .process-step {
+    padding: 16px 18px;
+  }
+
+  .process-step + .process-step {
+    border-left: 1px solid var(--line);
+  }
+
+  .process-step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .process-step-num {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+  }
+
+  .process-step-label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+  }
+
+  .process-step p {
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .process-step-artifact {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    line-height: 1.5;
+    color: var(--ink-faint);
+  }
+
+  .process-rail--home {
+    margin-top: 12px;
+  }
+
+  .process-rail--home .process-step {
+    padding: 20px 20px 22px;
+  }
+
+  .process-rail--home .process-step-num {
+    font-size: 0.64rem;
+  }
+
+  .process-rail--home .process-step-label {
+    font-size: 0.7rem;
+  }
+
+  .process-rail--home .process-step p {
+    font-size: 0.93rem;
+  }
+
+  @media (max-width: 800px) {
+    .process-rail {
+      grid-template-columns: 1fr;
+    }
+
+    .process-step + .process-step {
+      border-left: none;
+      border-top: 1px solid var(--line);
+    }
+  }
+</style>

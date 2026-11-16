@@ -8,6 +8,7 @@ import Compare from "../../components/study/Compare.astro";
 import Figure from "../../components/study/Figure.astro";
 import AnnotatedFigure from "../../components/study/AnnotatedFigure.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
+import ProcessRail from "../../components/ProcessRail.astro";
 import { Image } from "astro:assets";
 import screenOverview from "../../assets/tpl/screen-04-overview.png";
 import screenSetup from "../../assets/tpl/screen-05-setup.png";
@@ -26,6 +27,25 @@ const acts = [
   { num: "05", title: "The second pass" },
   { num: "06", title: "Impact & status" },
   { num: "07", title: "What I'd do differently" },
+];
+
+const shippedSteps = [
+  {
+    label: "Audit",
+    text: "11 friction points catalogued before any screen changed",
+  },
+  {
+    label: "Decide",
+    text: "One review surface per record; alternatives recorded and rejected",
+  },
+  {
+    label: "Ship",
+    text: "Phased delivery, each step behind acceptance gates",
+  },
+  {
+    label: "Govern",
+    text: "Patterns moved into the design system; guardrails run in CI",
+  },
 ];
 ---
 
@@ -297,24 +317,7 @@ const acts = [
       </Figure>
     </div>
     <p class="group-label">How this shipped</p>
-    <div class="shipped">
-      <div class="shipped-step">
-        <span class="shipped-step-label">Audit</span>
-        <p>11 friction points catalogued before any screen changed</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Decide</span>
-        <p>One review surface per record; alternatives recorded and rejected</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Ship</span>
-        <p>Phased delivery, each step behind acceptance gates</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Govern</span>
-        <p>Patterns moved into the design system; guardrails run in CI</p>
-      </div>
-    </div>
+    <ProcessRail steps={shippedSteps} label="How this shipped" />
   </Act>
 
   <Act num="05" title="The second pass: a workbench and a decision">

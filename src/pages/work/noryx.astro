@@ -6,6 +6,7 @@ import Act from "../../components/study/Act.astro";
 import DecisionCard from "../../components/study/DecisionCard.astro";
 import Figure from "../../components/study/Figure.astro";
 import EndBlock from "../../components/study/EndBlock.astro";
+import ProcessRail from "../../components/ProcessRail.astro";
 import { Image } from "astro:assets";
 import beforeSeo from "../../assets/noryx/selected/before-seo.png";
 import sketchBridge from "../../assets/noryx/selected/sketch-bridge.png";
@@ -20,6 +21,25 @@ const acts = [
   { num: "04", title: "The work" },
   { num: "05", title: "Impact & status" },
   { num: "06", title: "What I'd do differently" },
+];
+
+const shippedSteps = [
+  {
+    label: "Audit",
+    text: "The live product, audited: an engine that worked, an interface that hadn't kept pace",
+  },
+  {
+    label: "Decide",
+    text: "Keep the trust model — review-and-apply, a human at every commit — and rebuild the experience on top of it",
+  },
+  {
+    label: "Ship",
+    text: "New navigation and search, an agent chat with business context, guided onboarding — into a live product",
+  },
+  {
+    label: "Govern",
+    text: "A modern design system and its principles — coached into the developer team",
+  },
 ];
 ---
 
@@ -201,24 +221,7 @@ const acts = [
       </Figure>
     </div>
     <p class="group-label">How this shipped</p>
-    <div class="shipped">
-      <div class="shipped-step">
-        <span class="shipped-step-label">Audit</span>
-        <p>The live product, audited: an engine that worked, an interface that hadn't kept pace</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Decide</span>
-        <p>Keep the trust model — review-and-apply, a human at every commit — and rebuild the experience on top of it</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Ship</span>
-        <p>New navigation and search, an agent chat with business context, guided onboarding — into a live product</p>
-      </div>
-      <div class="shipped-step">
-        <span class="shipped-step-label">Govern</span>
-        <p>A modern design system and its principles — coached into the developer team</p>
-      </div>
-    </div>
+    <ProcessRail steps={shippedSteps} label="How this shipped" />
   </Act>
 
   <Act num="05" title="Impact & status">
